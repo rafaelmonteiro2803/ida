@@ -91,8 +91,8 @@
     .faq-item { background: #fff; border-radius: 8px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     .faq-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.93rem; color: var(--orange); font-weight: 500; font-family: inherit; }
     .faq-icon { color: var(--navy); font-size: 1.3rem; font-weight: 300; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-answer { display: none; padding: 0 24px 20px; color: #6b7280; font-size: 0.9rem; line-height: 1.75; }
-    .faq-item.open .faq-answer { display: block; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding: 0 24px; color: #6b7280; font-size: 0.9rem; line-height: 1.75; }
+    .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
 
     /* CTA */
@@ -329,42 +329,42 @@
         Quanto tempo leva para completar o curso?
         <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer">O curso possui mais de 12 horas de conteúdo divididas em 18 módulos. Você estuda no seu próprio ritmo, com acesso vitalício à plataforma. A maioria dos alunos conclui em 4 a 6 semanas dedicando algumas horas por semana.</div>
+      <div class="faq-answer">O curso tem 12+ horas de aulas. Você estuda no seu próprio ritmo, com acesso vitalício. Muitos advogados completam em 30-60 dias assistindo 30-40 minutos por dia.</div>
     </div>
     <div class="faq-item">
       <button class="faq-btn" onclick="toggleFaq(this)">
         Preciso ter experiência em direito público?
         <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer">Não é necessária experiência prévia em direito público. O curso foi desenvolvido para advogados de qualquer área que desejam dominar o direito de servidores públicos na prática, do zero ao avançado.</div>
+      <div class="faq-answer">Não. O curso começa desde os conceitos fundamentais. Se você é advogado já tem base suficiente. Recomendado para quem quer se especializar ou expandir seus serviços.</div>
     </div>
     <div class="faq-item">
       <button class="faq-btn" onclick="toggleFaq(this)">
         Como funciona o acesso?
         <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer">Após a confirmação do pagamento, você receberá as instruções de acesso por e-mail em até 24 horas. O acesso é vitalício e inclui todas as atualizações futuras do conteúdo.</div>
+      <div class="faq-answer">Você recebe um acesso exclusivo após a compra. Pode assistir as aulas quantas vezes quiser, em qualquer dispositivo, com acesso vitalício. Não há restrição de tempo.</div>
     </div>
     <div class="faq-item">
       <button class="faq-btn" onclick="toggleFaq(this)">
         Qual é a política de reembolso?
         <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer">Oferecemos 7 dias de garantia incondicional. Caso não esteja satisfeito com o curso por qualquer motivo, basta solicitar o reembolso dentro desse prazo e devolvemos 100% do valor investido.</div>
+      <div class="faq-answer">Oferecemos 7 dias de garantia. Se não se satisfizer, devolvemos 100% do investimento. Sem perguntas.</div>
     </div>
     <div class="faq-item">
       <button class="faq-btn" onclick="toggleFaq(this)">
         Os exemplos são casos reais?
         <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer">Sim. As aulas são baseadas em jurisprudência real e casos práticos do cotidiano da advocacia de servidores públicos. Você aprende com situações concretas que ocorrem nos tribunais brasileiros.</div>
+      <div class="faq-answer">Sim. Todos os exemplos, teses e argumentações são baseados em casos reais e jurisprudência vigente, com exemplos de decisões que realmente prosperam nos tribunais.</div>
     </div>
     <div class="faq-item">
       <button class="faq-btn" onclick="toggleFaq(this)">
         Posso usar o conhecimento para captar novos clientes?
         <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer">Sim. O curso é estruturado não apenas para aprofundar seu conhecimento jurídico, mas também para que você saiba como apresentar soluções reais aos clientes, gerar confiança e expandir sua carteira no nicho de servidores públicos.</div>
+      <div class="faq-answer">Totalmente. O objetivo é exatamente esse: que você domine o assunto, ofereça com confiança e cative clientes. Muitos dos nossos alunos conseguem novos clientes logo após o curso.</div>
     </div>
   </div>
 </section>
@@ -385,7 +385,10 @@
 
 <script>
   function toggleFaq(btn) {
-    btn.parentElement.classList.toggle('open');
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
   }
 </script>
 
