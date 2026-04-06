@@ -147,8 +147,9 @@
       display: grid; grid-template-columns: 300px 1fr; gap: 56px; align-items: start;
     }
     .instructor-photo {
-      background: linear-gradient(160deg, #e5e7eb 0%, #d1d5db 100%);
       border-radius: var(--radius); aspect-ratio: 3/4; width: 100%;
+      object-fit: cover; object-position: top; display: block;
+      background: linear-gradient(160deg, #e5e7eb 0%, #d1d5db 100%);
     }
     .instructor-info h3 { font-size: 1.8rem; font-weight: 800; color: var(--orange); margin-bottom: 6px; }
     .instructor-role { color: var(--navy); font-weight: 600; font-size: 0.95rem; margin-bottom: 22px; }
@@ -401,7 +402,7 @@
   <div class="inner">
     <span class="section-label">Quem ensina</span>
     <div class="instructor-grid">
-      <div class="instructor-photo" aria-label="Foto de Lourenço Grieco Neto"></div>
+      <img src="images/img_drlo.jpeg" alt="Lourenço Grieco Neto" class="instructor-photo">
       <div class="instructor-info">
         <h3>Lourenço Grieco Neto</h3>
         <p class="instructor-role">Mestre em Direito Constitucional · Professor Titular · Especialista em Defesa de Servidores Públicos</p>
