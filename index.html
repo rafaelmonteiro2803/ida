@@ -30,13 +30,10 @@
     nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px; height: 64px;
+      padding: 0 48px; height: 68px;
       background: var(--white); border-bottom: 1px solid #e5e7eb;
     }
-    .nav-logo {
-      font-size: 1rem; font-weight: 700; color: var(--orange);
-      white-space: nowrap;
-    }
+    .nav-logo img { height: 44px; width: auto; display: block; }
     .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-links a { font-size: 0.9rem; color: #374151; transition: color .2s; }
     .nav-links a:hover { color: var(--orange); }
@@ -46,6 +43,40 @@
       transition: background .2s;
     }
     .btn-nav:hover { background: var(--orange-dark); }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      width: 40px; height: 40px; background: none; border: none; cursor: pointer;
+      padding: 4px; border-radius: 6px;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px; background: var(--text);
+      border-radius: 2px; transition: transform .25s, opacity .25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .mobile-menu {
+      display: none; position: fixed; inset: 68px 0 0 0; z-index: 99;
+      background: var(--white); border-top: 1px solid #e5e7eb;
+      flex-direction: column; padding: 24px 24px 32px;
+      gap: 0; overflow-y: auto;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block; padding: 14px 0; font-size: 1rem; color: #374151;
+      border-bottom: 1px solid #f3f4f6; transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-menu .btn-mobile-cta {
+      margin-top: 20px; background: var(--orange); color: var(--white) !important;
+      text-align: center; padding: 14px; border-radius: 8px; font-weight: 700;
+      font-size: 1rem; border-bottom: none;
+    }
+    .mobile-menu .btn-mobile-cta:hover { background: var(--orange-dark); }
 
     /* ─── HERO ─── */
     #hero {
@@ -251,12 +282,16 @@
 
     /* ─── FOOTER ─── */
     footer {
-      background: var(--navy-dark); padding: 32px 48px;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      background: var(--navy-dark); padding: 36px 48px;
     }
-    footer p { color: rgba(255,255,255,.5); font-size: 0.82rem; }
-    .footer-links { display: flex; gap: 20px; }
-    .footer-links a { color: rgba(255,255,255,.45); font-size: 0.82rem; transition: color .2s; }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px; max-width: 1100px; margin: 0 auto;
+    }
+    .footer-brand img { height: 40px; width: auto; display: block; margin-bottom: 10px; }
+    footer p { color: rgba(255,255,255,.45); font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.4); font-size: 0.82rem; transition: color .2s; }
     .footer-links a:hover { color: rgba(255,255,255,.8); }
 
     /* ─── RESPONSIVE ─── */
@@ -271,18 +306,30 @@
       .instructor-photo { max-width: 280px; }
       .two-col, .curso-header { grid-template-columns: 1fr; }
       .modules-grid { grid-template-columns: repeat(2,1fr); }
-      .benefits-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: repeat(2,1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .metrics-inner { grid-template-columns: 1fr; gap: 0; }
       .metric { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); }
       .metric:last-child { border-bottom: none; }
-      footer { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      #hero { padding: 60px 16px 48px; }
       #hero h1 { font-size: 1.75rem; }
+      #hero p.sub { font-size: 0.95rem; }
+      section { padding: 48px 16px; }
+      #metrics { padding: 24px 16px; }
       .modules-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      #cta { padding: 72px 16px; }
+      #cta h2 { font-size: 1.9rem; }
+      .price { font-size: 2.6rem; }
+      .btn-cta { padding: 16px 32px; font-size: 1rem; }
+      footer { padding: 28px 16px; }
     }
   </style>
 </head>
@@ -290,7 +337,9 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a href="#" class="nav-logo">Instituto de Direito Aplicado</a>
+  <a href="#" class="nav-logo">
+    <img src="logo-dark.svg" alt="Instituto de Direito Aplicado">
+  </a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#curso">Curso</a></li>
@@ -298,7 +347,19 @@
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#cta" class="btn-nav">Comprar Agora</a></li>
   </ul>
+  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#sobre" onclick="closeMenu()">Sobre</a>
+  <a href="#curso" onclick="closeMenu()">Curso</a>
+  <a href="#beneficios" onclick="closeMenu()">Benefícios</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#cta" class="btn-mobile-cta" onclick="closeMenu()">Comprar Agora</a>
+</div>
 
 <main>
 
@@ -597,10 +658,15 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2024 Instituto de Direito Aplicado — Lourenço Grieco Neto. Todos os direitos reservados.</p>
-  <div class="footer-links">
-    <a href="#">Política de Privacidade</a>
-    <a href="#">Termos de Uso</a>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="logo-light.svg" alt="Instituto de Direito Aplicado">
+      <p>© 2024 Instituto de Direito Aplicado — Lourenço Grieco Neto.<br>Todos os direitos reservados.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
   </div>
 </footer>
 
@@ -610,6 +676,23 @@
     const isOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
     if (!isOpen) item.classList.add('open');
+  }
+
+  function toggleMenu(btn) {
+    const menu = document.getElementById('mobile-menu');
+    const open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.querySelector('.nav-hamburger');
+    menu.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   }
 </script>
 
