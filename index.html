@@ -3,35 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Domine Servidores Públicos na Prática com Lourenço Grieco Neto — curso completo para advogados que querem dominar o nicho mais rentável do Direito Público.">
   <title>Instituto de Direito Aplicado</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #333; }
-    :root { --orange: #f4722b; --navy: #1d3557; --light-gray: #f1f5f9; }
+    /* ── TOKENS ── */
+    :root {
+      --orange: #f4722b;
+      --navy:   #1d3557;
+      --light-gray: #f1f5f9;
+      --text:   #374151;
+      --muted:  #6b7280;
+      --white:  #ffffff;
+      --radius: 10px;
+      --shadow: 0 1px 4px rgba(0,0,0,0.06);
+      --transition-card: transform 0.22s ease, box-shadow 0.22s ease;
+    }
 
-    /* NAVBAR */
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; background: #fff; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 100; }
-    .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text); }
+    a { text-decoration: none; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .btn-primary { background: var(--navy); color: var(--white); }
+    .btn-outline  { background: rgba(255,255,255,0.15); color: var(--white); border: 2px solid rgba(255,255,255,0.6); }
+    .btn-cta      { background: var(--navy); color: var(--white); padding: 18px 52px; font-size: 1.1rem; border-radius: var(--radius); }
+
+    /* ── NAVBAR ── */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px; background: var(--white);
+      border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-size: 1.2rem; font-weight: 700; color: var(--orange); }
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-    .nav-links a { text-decoration: none; color: #374151; font-size: 0.95rem; }
-    .btn-nav { background: var(--orange); color: #fff !important; padding: 10px 22px; border-radius: 6px; font-weight: 600; }
+    .nav-links a { color: var(--text); font-size: 0.95rem; }
+    .nav-links .btn-nav { background: var(--orange); color: var(--white); padding: 10px 22px; border-radius: 6px; font-weight: 600; }
 
-    /* HERO */
-    #hero { background: var(--orange); padding: 90px 48px; text-align: center; color: #fff; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35); border-radius: 50px; padding: 8px 20px; font-size: 0.9rem; margin-bottom: 32px; }
-    #hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 24px; max-width: 820px; margin-left: auto; margin-right: auto; }
-    #hero > p { font-size: 1.05rem; opacity: 0.95; margin-bottom: 40px; max-width: 640px; margin-left: auto; margin-right: auto; }
-    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { background: var(--navy); color: #fff; padding: 14px 32px; border-radius: 8px; font-size: 1rem; font-weight: 700; text-decoration: none; }
-    .btn-secondary { background: rgba(255,255,255,0.15); color: #fff; padding: 14px 32px; border-radius: 8px; font-size: 1rem; font-weight: 600; text-decoration: none; border: 2px solid rgba(255,255,255,0.6); }
-
-    /* SECTIONS */
+    /* ── LAYOUT HELPERS ── */
     section { padding: 80px 48px; }
-    .section-title { text-align: center; font-size: 2rem; font-weight: 700; color: var(--orange); margin-bottom: 48px; }
     .inner { max-width: 1100px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: 2rem; font-weight: 700; color: var(--orange); margin-bottom: 48px; }
 
-    /* QUEM ENSINA */
-    #sobre { background: #fff; }
+    /* ── HERO ── */
+    #hero { background: var(--orange); padding: 90px 48px; text-align: center; color: var(--white); }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 50px; padding: 8px 20px; font-size: 0.9rem; margin-bottom: 28px;
+    }
+    #hero h1 {
+      font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px;
+      max-width: 820px; margin-left: auto; margin-right: auto;
+    }
+    .hero-social-proof {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 50px; padding: 6px 18px; font-size: 0.88rem;
+      margin-bottom: 28px;
+    }
+    #hero > p {
+      font-size: 1.05rem; opacity: 0.95; margin-bottom: 36px;
+      max-width: 640px; margin-left: auto; margin-right: auto;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── METRICS ── */
+    #metrics { background: var(--white); padding: 48px; }
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 860px; margin: 0 auto;
+    }
+    .metric-card {
+      background: var(--light-gray); border-radius: var(--radius);
+      padding: 32px 24px; text-align: center;
+      border-top: 3px solid var(--orange);
+      transition: var(--transition-card);
+    }
+    .metric-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+    .metric-emoji { font-size: 2rem; display: block; margin-bottom: 10px; }
+    .metric-value { font-size: 1.8rem; font-weight: 800; color: var(--orange); display: block; }
+    .metric-label { font-size: 0.88rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── QUEM ENSINA ── */
+    #sobre { background: var(--white); }
     .instructor-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
     .instructor-photo { background: #d1d5db; border-radius: 12px; aspect-ratio: 3/4; width: 100%; }
     .instructor-info h3 { font-size: 1.75rem; font-weight: 700; color: var(--orange); margin-bottom: 8px; }
@@ -41,110 +107,196 @@
     .check-list li { display: flex; align-items: center; gap: 10px; color: var(--navy); font-size: 0.93rem; margin-bottom: 10px; }
     .check-list li::before { content: "\2713"; color: var(--orange); font-weight: 700; }
 
-    /* DESAFIO */
+    /* ── DESAFIO ── */
     #desafio { background: var(--light-gray); }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-    .card-left-border { background: #fff; border-radius: 8px; border-left: 4px solid var(--navy); padding: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-    .card-left-border h4 { font-size: 1.05rem; font-weight: 700; color: #1f2937; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-    .card-left-border p { color: #6b7280; line-height: 1.75; font-size: 0.93rem; }
+    .challenge-card {
+      background: var(--white); border-radius: 8px; border-left: 4px solid var(--navy);
+      padding: 32px; box-shadow: var(--shadow);
+      transition: var(--transition-card);
+    }
+    .challenge-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+    .challenge-card h4 { font-size: 1.05rem; font-weight: 700; color: #1f2937; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .challenge-card p { color: var(--muted); line-height: 1.75; font-size: 0.93rem; }
     .icon-x { color: #f87171; }
 
-    /* CURSO */
-    #curso { background: #fff; }
+    /* ── CURSO ── */
+    #curso { background: var(--white); }
     .curso-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: center; margin-bottom: 64px; }
-    .curso-cover { background: linear-gradient(135deg, #fde8d8 0%, #f5d5e8 50%, #dce8f8 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 5rem; min-height: 280px; }
+    .curso-cover {
+      background: linear-gradient(135deg, #fde8d8 0%, #f5d5e8 50%, #dce8f8 100%);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; min-height: 280px;
+    }
     .curso-info h3 { font-size: 1.6rem; font-weight: 700; color: var(--orange); margin-bottom: 16px; line-height: 1.3; }
     .curso-info p { color: #4b5563; line-height: 1.75; margin-bottom: 14px; font-size: 0.95rem; }
     .curso-stats { display: flex; gap: 36px; margin-top: 24px; }
     .stat label { display: block; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; margin-bottom: 4px; }
     .stat span { font-size: 1.1rem; font-weight: 700; color: var(--orange); }
-
-    /* APRENDER */
     .aprender-heading { font-size: 1.45rem; font-weight: 700; color: var(--orange); margin-bottom: 28px; }
     .modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .module-card { background: #f8fafc; border-radius: 12px; border-top: 3px solid var(--navy); padding: 22px; }
-    .mod-num { width: 34px; height: 34px; background: var(--orange); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; margin-bottom: 12px; }
+    .module-card {
+      background: #f8fafc; border-radius: 12px; border-top: 3px solid var(--navy);
+      padding: 22px; transition: var(--transition-card);
+    }
+    .module-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+    .mod-num {
+      width: 34px; height: 34px; background: var(--orange); color: var(--white);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; margin-bottom: 12px;
+    }
     .module-card h4 { color: var(--orange); font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
-    .module-card p { color: #6b7280; font-size: 0.83rem; line-height: 1.55; }
+    .module-card p { color: var(--muted); font-size: 0.83rem; line-height: 1.55; }
 
-    /* BENEFICIOS */
+    /* ── BENEFÍCIOS ── */
     #beneficios { background: linear-gradient(135deg, #fef3ee 0%, #fde8df 100%); }
-    .benefits-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-bottom: 32px; }
-    .benefit-item { text-align: center; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .benefit-card {
+      background: var(--white); border-radius: var(--radius); padding: 28px 24px;
+      text-align: center; box-shadow: var(--shadow);
+      transition: var(--transition-card);
+    }
+    .benefit-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
     .benefit-icon { font-size: 2.4rem; display: block; margin-bottom: 10px; }
-    .benefit-item h4 { color: var(--orange); font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-    .benefit-item p { color: #6b7280; font-size: 0.82rem; line-height: 1.55; }
-    .benefits-row-2 { display: flex; }
-    .benefits-row-2 .benefit-item { max-width: 180px; }
+    .benefit-card h4 { color: var(--orange); font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+    .benefit-card p { color: var(--muted); font-size: 0.82rem; line-height: 1.55; }
 
-    /* DEPOIMENTOS */
-    #depoimentos { background: #fff; }
+    /* ── DEPOIMENTOS ── */
+    #depoimentos { background: var(--white); }
     .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .testimonial-card { background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--navy); padding: 28px; }
+    .testimonial-card {
+      background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--navy);
+      padding: 28px; transition: var(--transition-card);
+    }
+    .testimonial-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+    .t-stars { color: #fbbf24; font-size: 0.95rem; margin-bottom: 12px; }
     .testimonial-card blockquote { font-style: italic; color: #4b5563; line-height: 1.75; font-size: 0.93rem; margin-bottom: 20px; }
     .t-author strong { display: block; color: var(--orange); font-weight: 700; margin-bottom: 2px; }
     .t-author span { color: #9ca3af; font-size: 0.83rem; }
 
-    /* FAQ */
+    /* ── FAQ ── */
     #faq { background: var(--light-gray); }
     .faq-list { max-width: 800px; margin: 0 auto; }
-    .faq-item { background: #fff; border-radius: 8px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-    .faq-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.93rem; color: var(--orange); font-weight: 500; font-family: inherit; }
-    .faq-icon { color: var(--navy); font-size: 1.3rem; font-weight: 300; flex-shrink: 0; transition: transform 0.2s; }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding: 0 24px; color: #6b7280; font-size: 0.9rem; line-height: 1.75; }
+    .faq-item { background: var(--white); border-radius: 8px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .faq-btn {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px; background: none; border: none; text-align: left;
+      cursor: pointer; font-size: 0.93rem; color: var(--orange);
+      font-weight: 500; font-family: inherit;
+    }
+    .faq-icon {
+      width: 26px; height: 26px; background: var(--orange); color: var(--white);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 300; flex-shrink: 0;
+      transition: transform 0.22s ease;
+    }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 24px; color: var(--muted); font-size: 0.9rem; line-height: 1.75;
+    }
     .faq-item.open .faq-answer { max-height: 200px; padding: 0 24px 20px; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-    /* CTA */
+    /* ── CTA ── */
     #cta { background: var(--orange); text-align: center; padding: 90px 48px; }
-    #cta h2 { font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
-    #cta .cta-sub { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 40px; }
-    #cta .price { font-size: 3.2rem; font-weight: 800; color: #fff; margin-bottom: 32px; }
-    .btn-cta { display: inline-block; background: var(--navy); color: #fff; padding: 18px 52px; border-radius: 10px; font-size: 1.1rem; font-weight: 700; text-decoration: none; margin-bottom: 24px; }
-    #cta .guarantees { color: rgba(255,255,255,0.9); font-size: 0.9rem; }
+    #cta h2 { font-size: 2.4rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .cta-sub { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 36px; }
+    .price-label { color: rgba(255,255,255,0.8); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .price { font-size: 3.2rem; font-weight: 800; color: var(--white); margin-bottom: 32px; }
+    .cta-guarantees { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 24px; }
+    .cta-guarantee-item { color: rgba(255,255,255,0.95); font-size: 0.9rem; }
+    .cta-guarantee-item::before { content: "✓"; color: #fbbf24; font-weight: 700; margin-right: 6px; }
 
-    /* FOOTER */
-    footer { background: var(--navy); padding: 24px 48px; text-align: center; }
-    footer p { color: #9ca3af; font-size: 0.84rem; }
-    footer a { color: #60a5fa; text-decoration: none; }
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 40px 48px 24px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 600px; margin: 0 auto 28px; }
+    .footer-col h5 { color: var(--white); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { color: #9ca3af; font-size: 0.88rem; transition: color 0.15s; }
+    .footer-col ul li a:hover { color: #60a5fa; }
+    .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; }
+    .footer-bottom p { color: #9ca3af; font-size: 0.84rem; }
+    .footer-bottom a { color: #60a5fa; }
 
-    /* RESPONSIVE */
+    /* ── MOBILE STICKY CTA ── */
+    .sticky-cta {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: var(--navy); padding: 14px 20px; text-align: center;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.2);
+    }
+    .sticky-cta a {
+      display: block; background: var(--orange); color: var(--white);
+      padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 1rem;
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 12px 20px; }
       .nav-links { display: none; }
       section { padding: 52px 20px; }
       #hero { padding: 60px 20px; }
       #hero h1 { font-size: 2rem; }
+      #metrics { padding: 36px 20px; }
+      .metrics-grid { grid-template-columns: 1fr; gap: 16px; }
       .instructor-grid, .two-col, .curso-grid { grid-template-columns: 1fr; }
       .modules-grid { grid-template-columns: repeat(2, 1fr); }
-      .benefits-row { grid-template-columns: repeat(2, 1fr); }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .curso-stats { flex-wrap: wrap; gap: 16px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .sticky-cta { display: block; }
+      body { padding-bottom: 72px; }
     }
   </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
-<nav>
+<nav aria-label="Navegação principal">
   <a href="#" class="nav-logo">Instituto de Direito Aplicado</a>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#curso">Curso</a></li>
     <li><a href="#beneficios">Benefícios</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#cta" class="btn-nav">Comprar Agora</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-badge">🎓 Aprenda Direito Aplicado na Prática</div>
+<section id="hero" aria-label="Apresentação do curso">
+  <div class="hero-badge" role="img" aria-label="Aprenda Direito Aplicado na Prática">🎓 Aprenda Direito Aplicado na Prática</div>
   <h1>Domine Servidores Públicos na Prática</h1>
+  <div class="hero-social-proof">⭐⭐⭐⭐⭐ 4.9 · Avaliado por centenas de advogados</div>
   <p>Com Lourenço Grieco Neto - Professor Titular e Especialista em Defesa de Servidores Públicos</p>
   <div class="hero-buttons">
-    <a href="#cta" class="btn-primary">Comprar Curso (R$ 999)</a>
-    <a href="#curso" class="btn-secondary">Conhecer o Curso</a>
+    <a href="#cta" class="btn btn-primary">Comprar Curso (R$ 999)</a>
+    <a href="#curso" class="btn btn-outline">Conhecer o Curso</a>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section id="metrics" aria-label="Números do curso">
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <span class="metric-emoji" role="img" aria-label="Conteúdo">📚</span>
+      <span class="metric-value">12+</span>
+      <p class="metric-label">horas de conteúdo</p>
+    </div>
+    <div class="metric-card">
+      <span class="metric-emoji" role="img" aria-label="Módulos">🎯</span>
+      <span class="metric-value">18</span>
+      <p class="metric-label">módulos especializados</p>
+    </div>
+    <div class="metric-card">
+      <span class="metric-emoji" role="img" aria-label="Acesso vitalício">♾</span>
+      <span class="metric-value">Vitalício</span>
+      <p class="metric-label">acesso e atualizações</p>
+    </div>
   </div>
 </section>
 
@@ -153,7 +305,7 @@
   <div class="inner">
     <h2 class="section-title">Quem Ensina</h2>
     <div class="instructor-grid">
-      <div class="instructor-photo"></div>
+      <div class="instructor-photo" role="img" aria-label="Foto de Lourenço Grieco Neto"></div>
       <div class="instructor-info">
         <h3>Lourenço Grieco Neto</h3>
         <p class="instructor-subtitle">Mestre em Direito Constitucional e Especialista na Defesa de Servidores Públicos</p>
@@ -178,11 +330,11 @@
   <div class="inner">
     <h2 class="section-title">O Desafio do Advogado</h2>
     <div class="two-col">
-      <div class="card-left-border">
+      <div class="challenge-card">
         <h4><span class="icon-x">✗</span> O Problema</h4>
         <p>Muitos advogados sabem teoria, mas não conseguem identificar oportunidades reais em casos de servidores públicos. Faltam teses práticas, argumentação sólida e a capacidade de converter conhecimento jurídico em valor para o cliente.</p>
       </div>
-      <div class="card-left-border">
+      <div class="challenge-card">
         <h4>✓ A Solução</h4>
         <p>Aprenda as teses que funcionam no judiciário, como identificar oportunidades em cada caso e desenvolver argumentações convincentes. Ensino prático, sem enrolação, focado no que realmente prospera.</p>
       </div>
@@ -195,7 +347,7 @@
   <div class="inner">
     <h2 class="section-title">Servidores Públicos na Prática</h2>
     <div class="curso-grid">
-      <div class="curso-cover">📚</div>
+      <div class="curso-cover" role="img" aria-label="Capa do curso">📚</div>
       <div class="curso-info">
         <h3>Dominando o Nicho Mais Rentável do Direito Público</h3>
         <p>Um curso completo e prático sobre direito de servidores públicos. Aprenda a identificar teses vencedoras, estruturar argumentação sólida e oferecer soluções reais para seus clientes.</p>
@@ -208,7 +360,7 @@
       </div>
     </div>
 
-    <h3 class="aprender-heading">📖 O que você vai aprender</h3>
+    <h3 class="aprender-heading" role="img" aria-label="O que você vai aprender">📖 O que você vai aprender</h3>
     <div class="modules-grid">
       <div class="module-card">
         <div class="mod-num">1</div>
@@ -253,36 +405,34 @@
 <section id="beneficios">
   <div class="inner">
     <h2 class="section-title">O que você vai conquistar</h2>
-    <div class="benefits-row">
-      <div class="benefit-item">
-        <span class="benefit-icon">🎯</span>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="benefit-icon" role="img" aria-label="Identificar Oportunidades">🎯</span>
         <h4>Identifique Oportunidades</h4>
         <p>Aprenda a reconhecer teses vencedoras em cada caso de servidor público.</p>
       </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">📊</span>
+      <div class="benefit-card">
+        <span class="benefit-icon" role="img" aria-label="Estruturar Argumentação">📊</span>
         <h4>Estruture Argumentação</h4>
         <p>Desenvolva teses sólidas que prosperam no judiciário.</p>
       </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">💼</span>
+      <div class="benefit-card">
+        <span class="benefit-icon" role="img" aria-label="Capacitar Clientes">💼</span>
         <h4>Capacite Clientes</h4>
         <p>Apresente possibilidades reais e ganhe confiança do cliente.</p>
       </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">💰</span>
+      <div class="benefit-card">
+        <span class="benefit-icon" role="img" aria-label="Aumentar Rentabilidade">💰</span>
         <h4>Aumente Rentabilidade</h4>
         <p>Domine um nicho de alta demanda e maior valor agregado.</p>
       </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">⚖️</span>
+      <div class="benefit-card">
+        <span class="benefit-icon" role="img" aria-label="Decisões Judiciais">⚖️</span>
         <h4>Decisões Judiciais</h4>
         <p>Acesso a jurisprudência atualizada que ganha casos.</p>
       </div>
-    </div>
-    <div class="benefits-row-2">
-      <div class="benefit-item">
-        <span class="benefit-icon">🚀</span>
+      <div class="benefit-card">
+        <span class="benefit-icon" role="img" aria-label="Escalar seu Escritório">🚀</span>
         <h4>Escale seu Escritório</h4>
         <p>Ofereça serviços premium com base em conhecimento sólido.</p>
       </div>
@@ -296,6 +446,7 @@
     <h2 class="section-title">Depoimentos de Advogados</h2>
     <div class="testimonials-grid">
       <div class="testimonial-card">
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
         <blockquote>"Finalmente consegui estruturar uma tese sólida em caso de afastamento. O cliente viu o valor e contratou. Recomendo muito!"</blockquote>
         <div class="t-author">
           <strong>Marina S.</strong>
@@ -303,6 +454,7 @@
         </div>
       </div>
       <div class="testimonial-card">
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
         <blockquote>"A forma prática como ensina mudou minha abordagem com clientes. Agora consigo identificar oportunidades que antes passavam despercebidas."</blockquote>
         <div class="t-author">
           <strong>Carlos P.</strong>
@@ -310,6 +462,7 @@
         </div>
       </div>
       <div class="testimonial-card">
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
         <blockquote>"Depois do curso, consegui dois novos clientes só indicações de colegas que viram a qualidade do trabalho. Vale cada centavo investido."</blockquote>
         <div class="t-author">
           <strong>Amanda L.</strong>
@@ -321,51 +474,70 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" itemscope itemtype="https://schema.org/FAQPage">
   <h2 class="section-title">Perguntas Frequentes</h2>
   <div class="faq-list">
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Quanto tempo leva para completar o curso?
-        <span class="faq-icon">+</span>
+
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+        <span itemprop="name">Quanto tempo leva para completar o curso?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-answer">O curso tem 12+ horas de aulas. Você estuda no seu próprio ritmo, com acesso vitalício. Muitos advogados completam em 30-60 dias assistindo 30-40 minutos por dia.</div>
+      <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <span itemprop="text">O curso tem 12+ horas de aulas. Você estuda no seu próprio ritmo, com acesso vitalício. Muitos advogados completam em 30-60 dias assistindo 30-40 minutos por dia.</span>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Preciso ter experiência em direito público?
-        <span class="faq-icon">+</span>
+
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+        <span itemprop="name">Preciso ter experiência em direito público?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-answer">Não. O curso começa desde os conceitos fundamentais. Se você é advogado já tem base suficiente. Recomendado para quem quer se especializar ou expandir seus serviços.</div>
+      <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <span itemprop="text">Não. O curso começa desde os conceitos fundamentais. Se você é advogado já tem base suficiente. Recomendado para quem quer se especializar ou expandir seus serviços.</span>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Como funciona o acesso?
-        <span class="faq-icon">+</span>
+
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+        <span itemprop="name">Como funciona o acesso?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-answer">Você recebe um acesso exclusivo após a compra. Pode assistir as aulas quantas vezes quiser, em qualquer dispositivo, com acesso vitalício. Não há restrição de tempo.</div>
+      <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <span itemprop="text">Você recebe um acesso exclusivo após a compra. Pode assistir as aulas quantas vezes quiser, em qualquer dispositivo, com acesso vitalício. Não há restrição de tempo.</span>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Qual é a política de reembolso?
-        <span class="faq-icon">+</span>
+
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+        <span itemprop="name">Qual é a política de reembolso?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-answer">Oferecemos 7 dias de garantia. Se não se satisfizer, devolvemos 100% do investimento. Sem perguntas.</div>
+      <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <span itemprop="text">Oferecemos 7 dias de garantia. Se não se satisfizer, devolvemos 100% do investimento. Sem perguntas.</span>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Os exemplos são casos reais?
-        <span class="faq-icon">+</span>
+
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+        <span itemprop="name">Os exemplos são casos reais?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-answer">Sim. Todos os exemplos, teses e argumentações são baseados em casos reais e jurisprudência vigente, com exemplos de decisões que realmente prosperam nos tribunais.</div>
+      <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <span itemprop="text">Sim. Todos os exemplos, teses e argumentações são baseados em casos reais e jurisprudência vigente, com exemplos de decisões que realmente prosperam nos tribunais.</span>
+      </div>
     </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Posso usar o conhecimento para captar novos clientes?
-        <span class="faq-icon">+</span>
+
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+        <span itemprop="name">Posso usar o conhecimento para captar novos clientes?</span>
+        <span class="faq-icon" aria-hidden="true">+</span>
       </button>
-      <div class="faq-answer">Totalmente. O objetivo é exatamente esse: que você domine o assunto, ofereça com confiança e cative clientes. Muitos dos nossos alunos conseguem novos clientes logo após o curso.</div>
+      <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <span itemprop="text">Totalmente. O objetivo é exatamente esse: que você domine o assunto, ofereça com confiança e cative clientes. Muitos dos nossos alunos conseguem novos clientes logo após o curso.</span>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -373,22 +545,59 @@
 <section id="cta">
   <h2>Comece Agora</h2>
   <p class="cta-sub">Invista em você e domine um nicho rentável do direito</p>
+  <p class="price-label">Investimento único</p>
   <div class="price">R$ 999,00</div>
-  <a href="#" class="btn-cta">Comprar Curso Completo</a><br>
-  <p class="guarantees">✓ Acesso vitalício &bull; ✓ Atualizações incluídas &bull; ✓ 7 dias de garantia</p>
+  <a href="#" class="btn btn-cta">Comprar Curso Completo</a>
+  <div class="cta-guarantees">
+    <span class="cta-guarantee-item">Acesso vitalício</span>
+    <span class="cta-guarantee-item">Atualizações incluídas</span>
+    <span class="cta-guarantee-item">7 dias de garantia</span>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2024 Instituto de Direito Aplicado - Lourenço Grieco Neto. Todos os direitos reservados. | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h5>Curso</h5>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#curso">Curso</a></li>
+        <li><a href="#beneficios">Benefícios</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Informações</h5>
+      <ul>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#">Privacidade</a></li>
+        <li><a href="#">Termos</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Instituto de Direito Aplicado - Lourenço Grieco Neto. Todos os direitos reservados. | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
+  </div>
 </footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="sticky-cta" aria-label="Comprar curso">
+  <a href="#cta">Comprar Curso — R$ 999</a>
+</div>
 
 <script>
   function toggleFaq(btn) {
     const item = btn.parentElement;
     const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   }
 </script>
 
