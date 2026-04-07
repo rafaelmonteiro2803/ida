@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/logo_ida_transparente.png">
+  <link rel="shortcut icon" type="image/png" href="images/logo_ida_transparente.png">
   <title>Curso de Direito dos Servidores Públicos na Prática | Instituto de Direito Aplicado</title>
   <meta name="description" content="Especialize-se em Direito dos Servidores Públicos com foco prático, casos reais, teses aplicáveis e defesa estratégica. Curso online com acesso vitalício.">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -256,13 +258,22 @@
       gap: 24px; align-items: stretch; min-height: 280px;
     }
     .desafio-heading {
-      display: flex; flex-direction: column; justify-content: center;
-      padding-right: 8px; border-right: 2px solid rgba(0,0,0,0.08);
+      display: flex; flex-direction: column; justify-content: flex-start;
+      padding-right: 16px; padding-top: 4px;
+      border-right: 2px solid rgba(0,0,0,0.08);
     }
-    .desafio-heading .section-label { margin-bottom: 16px; font-size: 0.75rem; }
+    /* Título principal — grande e em destaque */
+    .desafio-heading .section-label {
+      display: block;
+      font-size: 1.75rem; font-weight: 900;
+      color: var(--orange); text-transform: none;
+      letter-spacing: 0; line-height: 1.25;
+      margin-bottom: 18px;
+    }
+    /* Subtítulo com typewriter — menor, tom secundário */
     .desafio-heading h2 {
-      font-size: 2.05rem; font-weight: 900; color: var(--text);
-      line-height: 1.22; margin: 0;
+      font-size: 1rem; font-weight: 500;
+      color: var(--text-muted); line-height: 1.6; margin: 0;
     }
 
     /* Typewriter cursor */
