@@ -249,18 +249,49 @@
     .check-list li::before { content: "✓"; color: var(--orange); font-weight: 800; flex-shrink: 0; }
 
     #desafio { background: var(--light-gray); }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .card {
-      background: var(--white); border-radius: var(--radius);
-      padding: 32px; box-shadow: var(--shadow);
-      transition: box-shadow .2s, transform .2s;
+
+    /* 3-column horizontal layout: heading 30% + 2 cards */
+    .desafio-layout {
+      display: grid; grid-template-columns: 30% 1fr 1fr;
+      gap: 24px; align-items: stretch; min-height: 280px;
     }
-    .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-    .card-icon { font-size: 2rem; margin-bottom: 14px; }
-    .card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-    .card p { color: var(--text-muted); line-height: 1.75; font-size: 0.93rem; }
-    .card.problem { border-top: 4px solid #f87171; }
-    .card.solution { border-top: 4px solid var(--orange); }
+    .desafio-heading {
+      display: flex; flex-direction: column; justify-content: center;
+      padding-right: 8px; border-right: 2px solid rgba(0,0,0,0.08);
+    }
+    .desafio-heading .section-label { margin-bottom: 14px; }
+    .desafio-heading h2 {
+      font-size: 1.55rem; font-weight: 900; color: var(--text);
+      line-height: 1.28; margin: 0;
+    }
+
+    /* Problem / Solution cards with photo */
+    .card {
+      position: relative; overflow: hidden;
+      border-radius: 16px; min-height: 260px;
+      background: var(--navy);
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.28); }
+    .card-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.22; transition: opacity 0.3s;
+    }
+    .card:hover .card-bg { opacity: 0.15; }
+    .card.problem::after, .card.solution::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+    }
+    .card.problem::after  { background: linear-gradient(150deg, rgba(180,30,30,0.45) 0%, rgba(29,53,87,0.92) 100%); }
+    .card.solution::after { background: linear-gradient(150deg, rgba(244,114,43,0.40) 0%, rgba(29,53,87,0.92) 100%); }
+
+    .card-body {
+      position: relative; z-index: 2;
+      padding: 32px; display: flex; flex-direction: column;
+    }
+    .card-icon { font-size: 2rem; margin-bottom: 16px; }
+    #desafio .card h3 { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+    #desafio .card p  { color: rgba(255,255,255,0.92); font-weight: 600; line-height: 1.75; font-size: 0.93rem; }
 
     .curso-header {
       display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px;
@@ -486,7 +517,8 @@
       .hero-card { max-width: 480px; }
       #hero h1 { font-size: 2.1rem; max-width: none; }
       #metrics { padding: 32px 20px; }
-      .instructor-grid, .two-col, .curso-header { grid-template-columns: 1fr; }
+      .instructor-grid, .two-col, .curso-header, .desafio-layout { grid-template-columns: 1fr; }
+      .desafio-heading { border-right: none; border-bottom: 2px solid rgba(0,0,0,0.08); padding-right: 0; padding-bottom: 20px; margin-bottom: 4px; }
       .curso-stats-card { padding: 20px 24px; gap: 0; }
       .instructor-photo { max-width: 280px; }
       .module-card { flex: 0 0 240px; }
@@ -723,21 +755,31 @@
 
     <section id="desafio" aria-labelledby="desafio-title">
       <div class="inner">
-        <span class="section-label">O desafio do mercado jurídico</span>
-        <h2 class="section-title" id="desafio-title">Conhecimento teórico, sozinho, não basta para ganhar segurança na prática</h2>
+        <div class="desafio-layout">
 
-        <div class="two-col">
+          <div class="desafio-heading">
+            <span class="section-label">O desafio do mercado jurídico</span>
+            <h2 id="desafio-title">Conhecimento teórico, sozinho, não basta para ganhar segurança na prática</h2>
+          </div>
+
           <article class="card problem">
-            <div class="card-icon" aria-hidden="true">⚠️</div>
-            <h3>O problema</h3>
-            <p>Muitos advogados conhecem a base do Direito Administrativo, mas têm dificuldade em transformar esse conhecimento em estratégia concreta para defesa de servidores públicos, identificação de oportunidades e construção de teses com potencial real de êxito.</p>
+            <img src="images/card-problem.jpg" alt="" class="card-bg" aria-hidden="true" />
+            <div class="card-body">
+              <div class="card-icon" aria-hidden="true">⚠️</div>
+              <h3>O problema</h3>
+              <p>Muitos advogados conhecem a base do Direito Administrativo, mas têm dificuldade em transformar esse conhecimento em estratégia concreta para defesa de servidores públicos, identificação de oportunidades e construção de teses com potencial real de êxito.</p>
+            </div>
           </article>
 
           <article class="card solution">
-            <div class="card-icon" aria-hidden="true">✅</div>
-            <h3>A solução</h3>
-            <p>O curso mostra como analisar casos, identificar fundamentos relevantes, estruturar argumentação jurídica e usar entendimentos que ajudam a sustentar uma atuação mais consistente, prática e valorizada pelo cliente.</p>
+            <img src="images/card-solution.jpg" alt="" class="card-bg" aria-hidden="true" />
+            <div class="card-body">
+              <div class="card-icon" aria-hidden="true">✅</div>
+              <h3>A solução</h3>
+              <p>O curso mostra como analisar casos, identificar fundamentos relevantes, estruturar argumentação jurídica e usar entendimentos que ajudam a sustentar uma atuação mais consistente, prática e valorizada pelo cliente.</p>
+            </div>
           </article>
+
         </div>
       </div>
     </section>
