@@ -302,37 +302,42 @@
     .modules-slider::-webkit-scrollbar { display: none; }
 
     .module-card {
-      flex: 0 0 270px; scroll-snap-align: start;
+      flex: 0 0 245px; scroll-snap-align: start;
       border-radius: 16px; overflow: hidden;
-      position: relative; min-height: 260px;
-      background: var(--navy);
-      transition: transform .2s, box-shadow .2s;
+      position: relative; height: 290px;
+      background: var(--navy); cursor: pointer;
+      transition: height 0.38s ease, transform 0.22s, box-shadow 0.22s;
     }
-    .module-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.28); }
+    .module-card:hover { height: 390px; transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.34); }
 
     .mod-bg {
       position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover;
-      opacity: 0.42; transition: opacity .3s;
+      opacity: 0.25; transition: opacity 0.38s, transform 0.38s;
     }
-    .module-card:hover .mod-bg { opacity: 0.32; }
+    .module-card:hover .mod-bg { opacity: 0.17; transform: scale(1.06); }
     .module-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(155deg, rgba(29,53,87,0.50) 0%, rgba(29,53,87,0.88) 100%);
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to top, rgba(29,53,87,0.97) 30%, rgba(29,53,87,0.52) 72%, rgba(29,53,87,0.18) 100%);
     }
 
-    .mod-content {
-      position: relative; z-index: 2;
-      padding: 22px 18px; min-height: 260px;
-      display: flex; flex-direction: column;
-    }
     .mod-num {
+      position: absolute; top: 18px; left: 18px; z-index: 2;
       width: 34px; height: 34px; background: var(--orange); color: #fff;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 0.85rem; margin-bottom: 14px; flex-shrink: 0;
+      font-weight: 800; font-size: 0.85rem;
     }
-    .module-card h3 { color: #fff; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
-    .module-card p { color: rgba(255,255,255,0.82); font-size: 0.82rem; line-height: 1.6; }
+    .mod-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 2; padding: 18px;
+    }
+    .module-card h3 { color: #fff; font-size: 0.92rem; font-weight: 700; line-height: 1.4; margin-bottom: 0; }
+    .module-card p {
+      color: rgba(255,255,255,0.87); font-size: 0.82rem; line-height: 1.6;
+      overflow: hidden; max-height: 0; opacity: 0; margin-top: 0;
+      transition: max-height 0.38s ease, opacity 0.30s ease 0.06s, margin-top 0.35s;
+    }
+    .module-card:hover p { max-height: 130px; opacity: 1; margin-top: 8px; }
 
     /* Slider nav buttons */
     .slider-btn {
@@ -360,15 +365,31 @@
     #beneficios { background: linear-gradient(160deg, #fef3ee 0%, #fde8df 100%); }
     .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
     .benefit-card {
-      background: var(--white); border-radius: var(--radius);
-      padding: 28px; box-shadow: var(--shadow);
-      display: flex; gap: 18px; align-items: flex-start;
-      transition: box-shadow .2s, transform .2s;
+      border-radius: 16px; overflow: hidden;
+      position: relative; min-height: 220px;
+      background: var(--navy);
+      transition: transform 0.22s, box-shadow 0.22s;
     }
-    .benefit-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-    .benefit-icon { font-size: 2rem; flex-shrink: 0; }
-    .benefit-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-    .benefit-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.30); }
+
+    .ben-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.28; transition: opacity 0.3s;
+    }
+    .benefit-card:hover .ben-bg { opacity: 0.20; }
+    .benefit-card::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(155deg, rgba(29,53,87,0.52) 0%, rgba(29,53,87,0.92) 100%);
+    }
+
+    .ben-content {
+      position: relative; z-index: 2;
+      padding: 28px 24px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .benefit-icon { font-size: 1.8rem; line-height: 1; }
+    .benefit-card h3 { color: #fff; font-size: 1rem; font-weight: 800; line-height: 1.35; margin: 0; }
+    .benefit-card p { color: rgba(255,255,255,0.90); font-size: 0.87rem; font-weight: 600; line-height: 1.65; margin: 0; }
 
     #depoimentos { background: var(--white); }
     .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
@@ -490,8 +511,8 @@
       section { padding: 48px 16px; }
       #metrics { padding: 24px 16px; }
       .benefits-grid { grid-template-columns: 1fr; }
-      .module-card { flex: 0 0 82vw; min-height: 240px; }
-      .mod-content { min-height: 240px; }
+      .module-card { flex: 0 0 82vw; height: 260px; }
+      .module-card:hover { height: 360px; }
       .slider-btn { display: none !important; }
       .curso-stats-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 16px; }
       .stat { padding: 16px 12px; border-right: none !important; border-bottom: 1px solid #e5e7eb; }
@@ -751,8 +772,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod1.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">1</div>
               <div class="mod-content">
-                <div class="mod-num">1</div>
                 <h3>Fundamentos do regime jurídico do servidor</h3>
                 <p>Base conceitual para compreender estabilidade, garantias, deveres e premissas relevantes do tema.</p>
               </div>
@@ -760,8 +781,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod2.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">2</div>
               <div class="mod-content">
-                <div class="mod-num">2</div>
                 <h3>Vencimentos, gratificações e adicionais</h3>
                 <p>Como avaliar composição remuneratória e fundamentos que influenciam a discussão de direitos.</p>
               </div>
@@ -769,8 +790,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod3.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">3</div>
               <div class="mod-content">
-                <div class="mod-num">3</div>
                 <h3>Afastamentos e efetivo exercício</h3>
                 <p>Entenda como interpretar situações em que o afastamento repercute sobre contagem e benefícios.</p>
               </div>
@@ -778,8 +799,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod4.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">4</div>
               <div class="mod-content">
-                <div class="mod-num">4</div>
                 <h3>Tempo de serviço e aposentadoria</h3>
                 <p>Aspectos práticos sobre contagem, reflexos e aproveitamento estratégico de períodos reconhecidos.</p>
               </div>
@@ -787,8 +808,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod5.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">5</div>
               <div class="mod-content">
-                <div class="mod-num">5</div>
                 <h3>Demissão, PAD e garantias constitucionais</h3>
                 <p>Leitura prática do procedimento administrativo e da defesa do servidor em situações sensíveis.</p>
               </div>
@@ -796,8 +817,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod6.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">6</div>
               <div class="mod-content">
-                <div class="mod-num">6</div>
                 <h3>Danos morais e reparação</h3>
                 <p>Como estruturar pedidos indenizatórios e sustentar a argumentação com mais consistência.</p>
               </div>
@@ -805,8 +826,8 @@
 
             <article class="module-card" role="listitem">
               <img src="images/mod7.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-num">7</div>
               <div class="mod-content">
-                <div class="mod-num">7</div>
                 <h3>Teses específicas e casos práticos</h3>
                 <p>Exemplos aplicados para fortalecer o raciocínio jurídico e a leitura estratégica do caso concreto.</p>
               </div>
@@ -826,48 +847,54 @@
 
         <div class="benefits-grid">
           <article class="benefit-card">
-            <span class="benefit-icon" aria-hidden="true">🎯</span>
-            <div>
+            <img src="images/ben1.jpg" alt="" class="ben-bg" aria-hidden="true" />
+            <div class="ben-content">
+              <span class="benefit-icon" aria-hidden="true">🎯</span>
               <h3>Leia melhor as oportunidades do caso</h3>
               <p>Aprenda a enxergar fundamentos jurídicos que muitas vezes passam despercebidos em demandas de servidores públicos.</p>
             </div>
           </article>
 
           <article class="benefit-card">
-            <span class="benefit-icon" aria-hidden="true">📊</span>
-            <div>
+            <img src="images/ben2.jpg" alt="" class="ben-bg" aria-hidden="true" />
+            <div class="ben-content">
+              <span class="benefit-icon" aria-hidden="true">📊</span>
               <h3>Construa argumentações mais sólidas</h3>
               <p>Organize melhor sua tese com base em fundamentos, contexto prático e maior clareza estratégica.</p>
             </div>
           </article>
 
           <article class="benefit-card">
-            <span class="benefit-icon" aria-hidden="true">💼</span>
-            <div>
+            <img src="images/ben3.jpg" alt="" class="ben-bg" aria-hidden="true" />
+            <div class="ben-content">
+              <span class="benefit-icon" aria-hidden="true">💼</span>
               <h3>Aumente a confiança do cliente</h3>
               <p>Explique possibilidades com mais segurança e eleve a percepção de valor do seu atendimento jurídico.</p>
             </div>
           </article>
 
           <article class="benefit-card">
-            <span class="benefit-icon" aria-hidden="true">💰</span>
-            <div>
+            <img src="images/ben4.jpg" alt="" class="ben-bg" aria-hidden="true" />
+            <div class="ben-content">
+              <span class="benefit-icon" aria-hidden="true">💰</span>
               <h3>Atue em um nicho com boa demanda</h3>
               <p>Amplie o potencial de rentabilidade ao dominar uma área com necessidades recorrentes e especializadas.</p>
             </div>
           </article>
 
           <article class="benefit-card">
-            <span class="benefit-icon" aria-hidden="true">⚖️</span>
-            <div>
+            <img src="images/ben5.jpg" alt="" class="ben-bg" aria-hidden="true" />
+            <div class="ben-content">
+              <span class="benefit-icon" aria-hidden="true">⚖️</span>
               <h3>Ganhe repertório prático</h3>
               <p>Tenha contato com casos, raciocínios e exemplos que ajudam na atuação real e na tomada de decisão jurídica.</p>
             </div>
           </article>
 
           <article class="benefit-card">
-            <span class="benefit-icon" aria-hidden="true">🚀</span>
-            <div>
+            <img src="images/ben6.jpg" alt="" class="ben-bg" aria-hidden="true" />
+            <div class="ben-content">
+              <span class="benefit-icon" aria-hidden="true">🚀</span>
               <h3>Fortaleça a autoridade do seu escritório</h3>
               <p>Posicione-se com mais consistência em uma especialidade que pode gerar diferenciação no mercado.</p>
             </div>
