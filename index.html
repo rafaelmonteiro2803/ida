@@ -289,20 +289,73 @@
     .stat span { font-size: 1.35rem; font-weight: 800; color: var(--orange); }
 
     .modules-title { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 24px; }
-    .modules-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+    /* === Modules Slider === */
+    .modules-slider-wrapper { position: relative; }
+    .modules-slider {
+      display: flex; gap: 16px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      padding: 8px 2px 20px; cursor: grab;
+    }
+    .modules-slider:active { cursor: grabbing; }
+    .modules-slider::-webkit-scrollbar { display: none; }
+
     .module-card {
-      background: var(--light-gray); border-radius: var(--radius);
-      border-top: 3px solid var(--navy); padding: 20px;
-      transition: box-shadow .2s, transform .2s;
+      flex: 0 0 270px; scroll-snap-align: start;
+      border-radius: 16px; overflow: hidden;
+      position: relative; min-height: 260px;
+      background: var(--navy);
+      transition: transform .2s, box-shadow .2s;
     }
-    .module-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .module-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.28); }
+
+    .mod-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.42; transition: opacity .3s;
+    }
+    .module-card:hover .mod-bg { opacity: 0.32; }
+    .module-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(155deg, rgba(29,53,87,0.50) 0%, rgba(29,53,87,0.88) 100%);
+    }
+
+    .mod-content {
+      position: relative; z-index: 2;
+      padding: 22px 18px; min-height: 260px;
+      display: flex; flex-direction: column;
+    }
     .mod-num {
-      width: 32px; height: 32px; background: var(--orange); color: var(--white);
+      width: 34px; height: 34px; background: var(--orange); color: #fff;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 0.85rem; margin-bottom: 12px;
+      font-weight: 800; font-size: 0.85rem; margin-bottom: 14px; flex-shrink: 0;
     }
-    .module-card h3 { color: var(--navy); font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
-    .module-card p { color: var(--text-muted); font-size: 0.82rem; line-height: 1.55; }
+    .module-card h3 { color: #fff; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+    .module-card p { color: rgba(255,255,255,0.82); font-size: 0.82rem; line-height: 1.6; }
+
+    /* Slider nav buttons */
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10; background: #fff; border: none; border-radius: 50%;
+      width: 40px; height: 40px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      font-size: 1.4rem; color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, color .2s;
+    }
+    .slider-btn:hover { background: var(--orange); color: #fff; }
+    .slider-btn.prev { left: -20px; }
+    .slider-btn.next { right: -20px; }
+
+    /* Slider dots */
+    .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 4px; }
+    .slider-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #d1d5db; border: none; cursor: pointer; padding: 0;
+      transition: background .25s, width .25s, border-radius .25s;
+    }
+    .slider-dot.active { background: var(--orange); width: 24px; border-radius: 4px; }
 
     #beneficios { background: linear-gradient(160deg, #fef3ee 0%, #fde8df 100%); }
     .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
@@ -415,7 +468,7 @@
       .instructor-grid, .two-col, .curso-header { grid-template-columns: 1fr; }
       .curso-stats-card { padding: 20px 24px; gap: 0; }
       .instructor-photo { max-width: 280px; }
-      .modules-grid { grid-template-columns: repeat(2,1fr); }
+      .module-card { flex: 0 0 240px; }
       .benefits-grid { grid-template-columns: repeat(2,1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .metrics-inner { grid-template-columns: 1fr; gap: 0; }
@@ -436,7 +489,10 @@
       .hero-card { padding: 28px 20px; }
       section { padding: 48px 16px; }
       #metrics { padding: 24px 16px; }
-      .modules-grid, .benefits-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .module-card { flex: 0 0 82vw; min-height: 240px; }
+      .mod-content { min-height: 240px; }
+      .slider-btn { display: none !important; }
       .curso-stats-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 16px; }
       .stat { padding: 16px 12px; border-right: none !important; border-bottom: 1px solid #e5e7eb; }
       .stat:nth-child(odd) { border-right: 1px solid #e5e7eb !important; }
@@ -689,49 +745,77 @@
 
         <h2 class="modules-title">O que você vai aprender</h2>
 
-        <div class="modules-grid">
-          <article class="module-card">
-            <div class="mod-num">1</div>
-            <h3>Fundamentos do regime jurídico do servidor</h3>
-            <p>Base conceitual para compreender estabilidade, garantias, deveres e premissas relevantes do tema.</p>
-          </article>
+        <div class="modules-slider-wrapper">
+          <button class="slider-btn prev" aria-label="Anterior">&#8249;</button>
+          <div class="modules-slider" id="modulesSlider" role="list">
 
-          <article class="module-card">
-            <div class="mod-num">2</div>
-            <h3>Vencimentos, gratificações e adicionais</h3>
-            <p>Como avaliar composição remuneratória e fundamentos que influenciam a discussão de direitos.</p>
-          </article>
+            <article class="module-card" role="listitem">
+              <img src="images/mod1.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">1</div>
+                <h3>Fundamentos do regime jurídico do servidor</h3>
+                <p>Base conceitual para compreender estabilidade, garantias, deveres e premissas relevantes do tema.</p>
+              </div>
+            </article>
 
-          <article class="module-card">
-            <div class="mod-num">3</div>
-            <h3>Afastamentos e efetivo exercício</h3>
-            <p>Entenda como interpretar situações em que o afastamento repercute sobre contagem e benefícios.</p>
-          </article>
+            <article class="module-card" role="listitem">
+              <img src="images/mod2.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">2</div>
+                <h3>Vencimentos, gratificações e adicionais</h3>
+                <p>Como avaliar composição remuneratória e fundamentos que influenciam a discussão de direitos.</p>
+              </div>
+            </article>
 
-          <article class="module-card">
-            <div class="mod-num">4</div>
-            <h3>Tempo de serviço e aposentadoria</h3>
-            <p>Aspectos práticos sobre contagem, reflexos e aproveitamento estratégico de períodos reconhecidos.</p>
-          </article>
+            <article class="module-card" role="listitem">
+              <img src="images/mod3.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">3</div>
+                <h3>Afastamentos e efetivo exercício</h3>
+                <p>Entenda como interpretar situações em que o afastamento repercute sobre contagem e benefícios.</p>
+              </div>
+            </article>
 
-          <article class="module-card">
-            <div class="mod-num">5</div>
-            <h3>Demissão, PAD e garantias constitucionais</h3>
-            <p>Leitura prática do procedimento administrativo e da defesa do servidor em situações sensíveis.</p>
-          </article>
+            <article class="module-card" role="listitem">
+              <img src="images/mod4.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">4</div>
+                <h3>Tempo de serviço e aposentadoria</h3>
+                <p>Aspectos práticos sobre contagem, reflexos e aproveitamento estratégico de períodos reconhecidos.</p>
+              </div>
+            </article>
 
-          <article class="module-card">
-            <div class="mod-num">6</div>
-            <h3>Danos morais e reparação</h3>
-            <p>Como estruturar pedidos indenizatórios e sustentar a argumentação com mais consistência.</p>
-          </article>
+            <article class="module-card" role="listitem">
+              <img src="images/mod5.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">5</div>
+                <h3>Demissão, PAD e garantias constitucionais</h3>
+                <p>Leitura prática do procedimento administrativo e da defesa do servidor em situações sensíveis.</p>
+              </div>
+            </article>
 
-          <article class="module-card">
-            <div class="mod-num">7</div>
-            <h3>Teses específicas e casos práticos</h3>
-            <p>Exemplos aplicados para fortalecer o raciocínio jurídico e a leitura estratégica do caso concreto.</p>
-          </article>
+            <article class="module-card" role="listitem">
+              <img src="images/mod6.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">6</div>
+                <h3>Danos morais e reparação</h3>
+                <p>Como estruturar pedidos indenizatórios e sustentar a argumentação com mais consistência.</p>
+              </div>
+            </article>
+
+            <article class="module-card" role="listitem">
+              <img src="images/mod7.jpg" alt="" class="mod-bg" aria-hidden="true" />
+              <div class="mod-content">
+                <div class="mod-num">7</div>
+                <h3>Teses específicas e casos práticos</h3>
+                <p>Exemplos aplicados para fortalecer o raciocínio jurídico e a leitura estratégica do caso concreto.</p>
+              </div>
+            </article>
+
+          </div>
+          <button class="slider-btn next" aria-label="Próximo">&#8250;</button>
         </div>
+        <div class="slider-dots" id="sliderDots" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -984,6 +1068,66 @@
       }
       document.body.style.overflow = '';
     }
+
+    // ── Modules Slider ──────────────────────────────────────────────
+    (function() {
+      const slider  = document.getElementById('modulesSlider');
+      const dotsEl  = document.getElementById('sliderDots');
+      const prevBtn = document.querySelector('.slider-btn.prev');
+      const nextBtn = document.querySelector('.slider-btn.next');
+      if (!slider) return;
+
+      const cards = slider.querySelectorAll('.module-card');
+      const total = cards.length;
+
+      // Build dots
+      cards.forEach(function(_, i) {
+        const dot = document.createElement('button');
+        dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Módulo ' + (i + 1));
+        dot.addEventListener('click', function() { scrollToCard(i); });
+        dotsEl.appendChild(dot);
+      });
+
+      function getCardWidth() {
+        return cards[0] ? cards[0].offsetWidth + 16 : 286; // gap = 16px
+      }
+
+      function scrollToCard(index) {
+        slider.scrollTo({ left: index * getCardWidth(), behavior: 'smooth' });
+      }
+
+      function updateDots() {
+        const idx = Math.round(slider.scrollLeft / getCardWidth());
+        dotsEl.querySelectorAll('.slider-dot').forEach(function(d, i) {
+          d.classList.toggle('active', i === idx);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() {
+        slider.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+      });
+      nextBtn.addEventListener('click', function() {
+        slider.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+      });
+
+      slider.addEventListener('scroll', updateDots, { passive: true });
+
+      // Drag to scroll (mouse)
+      var isDown = false, startX, scrollLeft;
+      slider.addEventListener('mousedown', function(e) {
+        isDown = true; startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+      slider.addEventListener('mouseleave', function() { isDown = false; });
+      slider.addEventListener('mouseup',    function() { isDown = false; });
+      slider.addEventListener('mousemove',  function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - slider.offsetLeft;
+        slider.scrollLeft = scrollLeft - (x - startX);
+      });
+    })();
   </script>
 </body>
 </html>
