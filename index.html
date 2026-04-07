@@ -264,18 +264,29 @@
 
     .curso-header {
       display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px;
-      align-items: center; margin-bottom: 64px;
+      align-items: center; margin-bottom: 32px;
     }
     .curso-cover {
-      background: linear-gradient(135deg, #fde8d8 0%, #f5d5e8 50%, #dce8f8 100%);
-      border-radius: 16px; display: flex; align-items: center; justify-content: center;
-      font-size: 6rem; min-height: 280px;
+      border-radius: 16px; overflow: hidden; min-height: 300px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
     }
+    .curso-cover img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 300px; }
     .curso-info h2 { font-size: 1.55rem; font-weight: 800; color: var(--orange); margin-bottom: 14px; line-height: 1.3; }
     .curso-info p { color: #4b5563; line-height: 1.8; margin-bottom: 12px; font-size: 0.95rem; }
-    .curso-stats { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
-    .stat label { display: block; font-size: 0.7rem; letter-spacing: .1em; text-transform: uppercase; color: #9ca3af; margin-bottom: 4px; }
-    .stat span { font-size: 1.1rem; font-weight: 800; color: var(--orange); }
+
+    /* Floating stats card */
+    .curso-stats-card {
+      display: flex; justify-content: space-around; align-items: center;
+      background: #fff; border-radius: 16px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.13), 0 4px 16px rgba(244,114,43,0.10);
+      padding: 28px 40px; margin-bottom: 48px;
+      border-top: 4px solid var(--orange);
+      position: relative; z-index: 2;
+    }
+    .stat { text-align: center; flex: 1; padding: 0 20px; }
+    .stat:not(:last-child) { border-right: 1px solid #e5e7eb; }
+    .stat label { display: block; font-size: 0.65rem; letter-spacing: .12em; text-transform: uppercase; color: #9ca3af; margin-bottom: 6px; font-weight: 600; }
+    .stat span { font-size: 1.35rem; font-weight: 800; color: var(--orange); }
 
     .modules-title { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 24px; }
     .modules-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
@@ -402,6 +413,7 @@
       #hero h1 { font-size: 2.1rem; max-width: none; }
       #metrics { padding: 32px 20px; }
       .instructor-grid, .two-col, .curso-header { grid-template-columns: 1fr; }
+      .curso-stats-card { padding: 20px 24px; gap: 0; }
       .instructor-photo { max-width: 280px; }
       .modules-grid { grid-template-columns: repeat(2,1fr); }
       .benefits-grid { grid-template-columns: repeat(2,1fr); }
@@ -425,6 +437,10 @@
       section { padding: 48px 16px; }
       #metrics { padding: 24px 16px; }
       .modules-grid, .benefits-grid { grid-template-columns: 1fr; }
+      .curso-stats-card { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 16px; }
+      .stat { padding: 16px 12px; border-right: none !important; border-bottom: 1px solid #e5e7eb; }
+      .stat:nth-child(odd) { border-right: 1px solid #e5e7eb !important; }
+      .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
       #cta { padding: 72px 16px; }
       #cta h2 { font-size: 1.9rem; }
       .price { font-size: 2.6rem; }
@@ -652,21 +668,23 @@
     <section id="curso" aria-labelledby="curso-title">
       <div class="inner">
         <div class="curso-header">
-          <div class="curso-cover" aria-hidden="true">📚</div>
+          <div class="curso-cover">
+            <img src="images/biblioteca.jpg" alt="Ambiente de biblioteca jurídica universitária" />
+          </div>
 
           <article class="curso-info">
             <span class="section-label">Sobre o curso</span>
             <h2 id="curso-title">Formação prática em Direito dos Servidores Públicos para advogados que querem atuar melhor</h2>
             <p>Este curso online foi desenvolvido para profissionais que desejam entender, na prática, como atuar em demandas relacionadas a servidores públicos, com foco em teses jurídicas, estruturação argumentativa e leitura estratégica do caso.</p>
             <p>O conteúdo foi organizado para acelerar a aplicação real do conhecimento no dia a dia do escritório, ajudando você a prestar orientação com mais clareza, segurança e valor percebido.</p>
-
-            <div class="curso-stats">
-              <div class="stat"><label>Duração</label><span>12+ horas</span></div>
-              <div class="stat"><label>Módulos</label><span>18</span></div>
-              <div class="stat"><label>Acesso</label><span>Vitalício</span></div>
-              <div class="stat"><label>Garantia</label><span>7 dias</span></div>
-            </div>
           </article>
+        </div>
+
+        <div class="curso-stats-card">
+          <div class="stat"><label>Duração</label><span>12+ horas</span></div>
+          <div class="stat"><label>Módulos</label><span>18</span></div>
+          <div class="stat"><label>Acesso</label><span>Vitalício</span></div>
+          <div class="stat"><label>Garantia</label><span>7 dias</span></div>
         </div>
 
         <h2 class="modules-title">O que você vai aprender</h2>
