@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline & Risco de Meta 2026 – Observabilidade</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue:       #1a56db;
+      --blue-dark:  #1139a0;
+      --blue-light: #e8f0fe;
+      --green:      #0e9f6e;
+      --green-light:#d1fae5;
+      --amber:      #d97706;
+      --amber-light:#fef3c7;
+      --red:        #e02424;
+      --red-light:  #fde8e8;
+      --gray-50:    #f9fafb;
+      --gray-100:   #f3f4f6;
+      --gray-200:   #e5e7eb;
+      --gray-400:   #9ca3af;
+      --gray-600:   #4b5563;
+      --gray-800:   #1f2937;
+      --white:      #ffffff;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-800);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    /* ── PAGE SHELL ── */
+    .page {
+      width: 1200px;
+      min-height: 850px;
+      margin: 24px auto;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #0f2057 0%, #1a56db 60%, #1e6fcf 100%);
+      padding: 20px 28px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header-left { flex: 1; }
+    .header-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      color: #c7d9ff;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    .header h1 {
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.25;
+      max-width: 680px;
+    }
+    .header h1 span { color: #fbbf24; }
+    .header-right {
+      text-align: right;
+      color: rgba(255,255,255,0.75);
+      font-size: 9.5px;
+      white-space: nowrap;
+    }
+    .header-right strong { display: block; color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+
+    /* ── BODY GRID ── */
+    .body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 230px 1fr 240px;
+      grid-template-rows: 1fr auto;
+      gap: 0;
+    }
+
+    /* ── PANEL BASE ── */
+    .panel {
+      padding: 16px 16px 14px;
+      border-right: 1px solid var(--gray-200);
+    }
+    .panel:last-child { border-right: none; }
+    .panel-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .panel-title::before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 14px;
+      border-radius: 2px;
+      background: var(--blue);
+    }
+
+    /* ── LEFT PANEL – OVERVIEW ── */
+    .panel-left { background: var(--gray-50); }
+
+    .kpi-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .kpi-label {
+      font-size: 9px;
+      color: var(--gray-400);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 3px;
+    }
+    .kpi-value {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gray-800);
+      line-height: 1;
+    }
+    .kpi-value.green { color: var(--green); }
+    .kpi-value.red   { color: var(--red); }
+    .kpi-value.blue  { color: var(--blue); }
+    .kpi-sub {
+      font-size: 9.5px;
+      color: var(--gray-600);
+      margin-top: 3px;
+    }
+    .kpi-sub .badge {
+      display: inline-block;
+      background: var(--red-light);
+      color: var(--red);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-weight: 700;
+      font-size: 9px;
+    }
+    .kpi-sub .badge.green { background: var(--green-light); color: var(--green); }
+
+    .divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 12px 0;
+    }
+
+    .callout {
+      background: var(--blue-light);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 6px 6px 0;
+      padding: 8px 10px;
+      font-size: 9.5px;
+      color: var(--blue-dark);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    /* ── CENTER PANEL – FUNNEL ── */
+    .panel-center { background: var(--white); }
+
+    /* Leads */
+    .leads-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .leads-box {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .leads-box .val { font-size: 18px; font-weight: 800; color: var(--gray-800); }
+    .leads-box .lbl { font-size: 8.5px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .07em; font-weight: 600; margin-top: 1px; }
+    .leads-box .chg { font-size: 9.5px; font-weight: 700; margin-top: 3px; }
+    .chg.down { color: var(--red); }
+    .chg.up   { color: var(--green); }
+
+    .warn-strip {
+      background: var(--amber-light);
+      border-left: 3px solid var(--amber);
+      border-radius: 0 5px 5px 0;
+      padding: 5px 9px;
+      font-size: 9px;
+      color: #92400e;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    /* Oportunidades */
+    .opp-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+    }
+    .opp-num { font-size: 26px; font-weight: 800; color: var(--amber); }
+    .opp-text { font-size: 10px; color: var(--gray-600); }
+    .opp-text strong { color: var(--gray-800); font-size: 11px; }
+    .opp-badge {
+      margin-left: auto;
+      background: var(--green-light);
+      color: var(--green);
+      border-radius: 20px;
+      padding: 3px 9px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+
+    /* Pipeline deals */
+    .pipeline-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .pipeline-header .total {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+    .pipeline-header .lbl {
+      font-size: 9.5px;
+      color: var(--gray-400);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .pipeline-header .secure {
+      margin-left: auto;
+      font-size: 9.5px;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .pipeline-header .secure span { color: var(--gray-400); font-weight: 400; }
+
+    .deal-list { display: flex; flex-direction: column; gap: 5px; }
+    .deal-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .deal-name {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--gray-800);
+      width: 130px;
+      flex-shrink: 0;
+    }
+    .deal-bar-wrap {
+      flex: 1;
+      background: var(--gray-100);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .deal-bar {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #1a56db, #60a5fa);
+    }
+    .deal-bar.big { background: linear-gradient(90deg, #0e9f6e, #34d399); }
+    .deal-val {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--gray-600);
+      white-space: nowrap;
+      width: 70px;
+      text-align: right;
+    }
+
+    /* ── RIGHT PANEL – FORECAST ── */
+    .panel-right { background: var(--gray-50); }
+
+    .forecast-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+    .forecast-table th {
+      font-size: 8.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--gray-400);
+      text-align: left;
+      padding: 0 6px 6px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .forecast-table td {
+      padding: 6px 6px;
+      font-size: 10px;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: middle;
+    }
+    .forecast-table tr:last-child td { border-bottom: none; }
+    .td-month { font-weight: 700; color: var(--gray-800); }
+    .td-entry { font-weight: 600; color: var(--blue); }
+    .td-saldo { font-weight: 700; color: var(--red); text-align: right; }
+
+    .gap-alert {
+      background: var(--red-light);
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .gap-alert .gap-label { font-size: 8.5px; color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .gap-alert .gap-val { font-size: 18px; font-weight: 800; color: var(--red); }
+    .gap-alert .gap-sub { font-size: 9px; color: #b91c1c; }
+
+    /* ── BOTTOM BAR – INSIGHTS + PRIORITIES ── */
+    .bottom {
+      grid-column: 1 / -1;
+      border-top: 2px solid var(--gray-200);
+      background: #0f2057;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+    .bottom-cell {
+      padding: 14px 18px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .bottom-cell:last-child { border-right: none; }
+    .bottom-title {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 9px;
+    }
+    .insight-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .insight-list li {
+      font-size: 9.5px;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.4;
+    }
+    .insight-list li .dot {
+      flex-shrink: 0;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #fbbf24;
+      margin-top: 4px;
+    }
+    .prio-group { margin-bottom: 8px; }
+    .prio-group-title {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 5px;
+    }
+    .prio-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #fff;
+      margin: 2px 3px 2px 0;
+    }
+    .prio-chip .amt { color: #fbbf24; }
+    .prio-chip.medium { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.65); }
+    .prio-cta {
+      margin-top: 8px;
+      font-size: 9px;
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #060f2e;
+      padding: 7px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-left { font-size: 9px; color: rgba(255,255,255,0.35); }
+    .footer-right { font-size: 9px; color: rgba(255,255,255,0.35); }
+
+    @media print {
+      body { background: white; }
+      .page { margin: 0; box-shadow: none; border-radius: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-tag">Unidade de Negócios · Observabilidade</div>
+      <h1>Pipeline cobre parcialmente o gap, mas ainda há <span>risco estrutural de ~R$ 1,9M</span><br>para cumprimento da meta 2026</h1>
+    </div>
+    <div class="header-right">
+      <strong>Agenda Comercial · Abril 2026</strong>
+      Pipeline &amp; Risco de Meta
+    </div>
+  </div>
+
+  <!-- ══ BODY ══ -->
+  <div class="body">
+
+    <!-- ─── LEFT · VISÃO GERAL ─── -->
+    <div class="panel panel-left">
+      <div class="panel-title">1 · Visão Geral</div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Meta 2026</div>
+        <div class="kpi-value blue">R$ 7.630.346</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Realizado</div>
+        <div class="kpi-value green">R$ 7.366.464</div>
+        <div class="kpi-sub"><span class="badge">−3,46%</span> &nbsp;−R$ 263.882</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Gap Atual</div>
+        <div class="kpi-value red">−R$ 5.765.343</div>
+        <div class="kpi-sub">Cenário realista: <strong>R$ 5.715.003</strong></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="callout">
+        Execução aderente, porém com pressão relevante de pipeline para fechamento da meta
+      </div>
+    </div>
+
+    <!-- ─── CENTER · FUNIL COMERCIAL ─── -->
+    <div class="panel panel-center">
+      <div class="panel-title">2 · Funil Comercial</div>
+
+      <!-- Leads -->
+      <div class="leads-grid">
+        <div class="leads-box">
+          <div class="val">34,07</div>
+          <div class="lbl">Total Leads</div>
+          <div class="chg down">▼ −4,16%</div>
+        </div>
+        <div class="leads-box">
+          <div class="val">3,62</div>
+          <div class="lbl">Quente</div>
+          <div class="chg up">▲ +0,56%</div>
+        </div>
+        <div class="leads-box">
+          <div class="val">2,16</div>
+          <div class="lbl">Morno</div>
+          <div class="chg down">▼ −40,17%</div>
+        </div>
+      </div>
+
+      <div class="warn-strip">⚠️ Queda relevante de leads mornos impacta pipeline futuro</div>
+
+      <!-- Oportunidades -->
+      <div class="opp-row">
+        <div class="opp-num">32</div>
+        <div class="opp-text"><strong>Oportunidades</strong><br>em negociação ativa</div>
+        <div class="opp-badge">▲ +3,23%</div>
+      </div>
+
+      <!-- Pipeline ativo -->
+      <div class="pipeline-header">
+        <div>
+          <div class="lbl">Pipeline Ativo</div>
+          <div class="total">R$ 3.850.000</div>
+        </div>
+        <div class="secure"><span>Receita Segura </span>R$ 1.864.003</div>
+      </div>
+
+      <div class="deal-list">
+        <div class="deal-row">
+          <div class="deal-name">ARCELOR</div>
+          <div class="deal-bar-wrap"><div class="deal-bar big" style="width:100%"></div></div>
+          <div class="deal-val">R$ 1.900.000</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-name">BRADESCO</div>
+          <div class="deal-bar-wrap"><div class="deal-bar" style="width:34%"></div></div>
+          <div class="deal-val">R$ 650.000</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-name">ITAMBÉ</div>
+          <div class="deal-bar-wrap"><div class="deal-bar" style="width:32%"></div></div>
+          <div class="deal-val">R$ 600.000</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-name">ITAMBÉ SERVIÇOS</div>
+          <div class="deal-bar-wrap"><div class="deal-bar" style="width:18%"></div></div>
+          <div class="deal-val">R$ 350.000</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-name">ASSAI</div>
+          <div class="deal-bar-wrap"><div class="deal-bar" style="width:13%"></div></div>
+          <div class="deal-val">R$ 250.000</div>
+        </div>
+        <div class="deal-row">
+          <div class="deal-name">PRODESP</div>
+          <div class="deal-bar-wrap"><div class="deal-bar" style="width:5%"></div></div>
+          <div class="deal-val">R$ 100.000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── RIGHT · FORECAST ─── -->
+    <div class="panel panel-right">
+      <div class="panel-title">3 · Forecast</div>
+
+      <table class="forecast-table">
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th>Entrada</th>
+            <th style="text-align:right">Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-month">MAIO</td>
+            <td class="td-entry">R$ 2.500.000</td>
+            <td class="td-saldo">−R$ 3.265.343</td>
+          </tr>
+          <tr>
+            <td class="td-month">JUNHO</td>
+            <td class="td-entry">R$ 600.000</td>
+            <td class="td-saldo">−R$ 2.665.343</td>
+          </tr>
+          <tr>
+            <td class="td-month">JULHO</td>
+            <td class="td-entry">R$ 650.000</td>
+            <td class="td-saldo">−R$ 2.015.343</td>
+          </tr>
+          <tr>
+            <td class="td-month">AGOSTO</td>
+            <td class="td-entry">R$ 100.000</td>
+            <td class="td-saldo">−R$ 1.915.343</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="gap-alert">
+        <div class="gap-label">Gap Residual após Forecast</div>
+        <div class="gap-val">−R$ 1.915.343</div>
+        <div class="gap-sub">Pipeline cobre ~67% do gap atual</div>
+      </div>
+
+      <div style="background:var(--white); border:1px solid var(--gray-200); border-radius:8px; padding:10px 12px;">
+        <div style="font-size:9px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:.06em; margin-bottom:7px;">Cobertura do Gap</div>
+        <!-- Bar visual -->
+        <div style="display:flex; height:10px; border-radius:5px; overflow:hidden; gap:2px; margin-bottom:5px;">
+          <div style="width:32%; background:#0e9f6e;" title="Receita Segura"></div>
+          <div style="width:35%; background:#1a56db;" title="Pipeline Ativo"></div>
+          <div style="width:33%; background:#fca5a5;" title="Gap Residual"></div>
+        </div>
+        <div style="display:flex; gap:10px; font-size:8.5px;">
+          <span style="display:flex;align-items:center;gap:3px;"><span style="width:8px;height:8px;border-radius:2px;background:#0e9f6e;display:inline-block;"></span><span style="color:var(--gray-600)">Seguro</span></span>
+          <span style="display:flex;align-items:center;gap:3px;"><span style="width:8px;height:8px;border-radius:2px;background:#1a56db;display:inline-block;"></span><span style="color:var(--gray-600)">Pipeline</span></span>
+          <span style="display:flex;align-items:center;gap:3px;"><span style="width:8px;height:8px;border-radius:2px;background:#fca5a5;display:inline-block;"></span><span style="color:var(--gray-600)">Gap</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── BOTTOM BAR ─── -->
+    <div class="bottom">
+
+      <!-- Insights -->
+      <div class="bottom-cell">
+        <div class="bottom-title">4 · Principais Insights</div>
+        <ul class="insight-list">
+          <li><span class="dot"></span>Pipeline cobre ~67% do gap atual</li>
+          <li><span class="dot"></span>Forte dependência de grandes deals (Arcelor / Bradesco)</li>
+          <li><span class="dot"></span>Queda de leads mornos (−40%) indica risco futuro</li>
+          <li><span class="dot"></span>Base realizada sólida — R$ 1,86M já garantidos</li>
+        </ul>
+      </div>
+
+      <!-- Curto Prazo -->
+      <div class="bottom-cell">
+        <div class="bottom-title">5 · Prioridades Executivas — Curto Prazo</div>
+        <div class="prio-group">
+          <div class="prio-group-title">🔥 Fechamento imediato — objetivo: destravar R$ 3,5M</div>
+          <div>
+            <div class="prio-chip">ARCELOR <span class="amt">R$ 1,9M</span></div>
+            <div class="prio-chip">BRADESCO <span class="amt">R$ 650k</span></div>
+            <div class="prio-chip">ITAMBÉ <span class="amt">R$ 950k</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Médio/Estrutural -->
+      <div class="bottom-cell">
+        <div class="bottom-title">5 · Médio Prazo &amp; Estrutural</div>
+        <div class="prio-group">
+          <div class="prio-group-title">⚡ Gap residual ~R$ 1,9M — ativar contas</div>
+          <div>
+            <div class="prio-chip medium">CAIXA</div>
+            <div class="prio-chip medium">CORREIOS</div>
+            <div class="prio-chip medium">SERPRO</div>
+            <div class="prio-chip medium">SME-SP</div>
+            <div class="prio-chip medium">VIVARA</div>
+            <div class="prio-chip medium">NEOENERGIA</div>
+          </div>
+        </div>
+        <div class="prio-cta">🧠 Estrutural: Reforçar geração de demanda · Observabilidade + ROI + eventos críticos</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <div class="footer-left">Unidade de Negócios de Observabilidade &nbsp;·&nbsp; Dados referência WK14 2026</div>
+    <div class="footer-right">Confidencial · Uso interno</div>
+  </div>
+
+</div>
+
+</body>
+</html>
