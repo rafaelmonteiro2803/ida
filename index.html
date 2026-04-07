@@ -259,11 +259,20 @@
       display: flex; flex-direction: column; justify-content: center;
       padding-right: 8px; border-right: 2px solid rgba(0,0,0,0.08);
     }
-    .desafio-heading .section-label { margin-bottom: 14px; }
+    .desafio-heading .section-label { margin-bottom: 16px; font-size: 0.75rem; }
     .desafio-heading h2 {
-      font-size: 1.55rem; font-weight: 900; color: var(--text);
-      line-height: 1.28; margin: 0;
+      font-size: 2.05rem; font-weight: 900; color: var(--text);
+      line-height: 1.22; margin: 0;
     }
+
+    /* Typewriter cursor */
+    .tw-cursor {
+      display: inline-block; width: 3px; height: 1em;
+      background: var(--orange); vertical-align: middle;
+      margin-left: 3px; border-radius: 1px;
+      animation: tw-blink 0.75s step-end infinite;
+    }
+    @keyframes tw-blink { 0%,100%{ opacity:1 } 50%{ opacity:0 } }
 
     /* Problem / Solution cards with photo */
     .card {
@@ -1137,6 +1146,37 @@
       }
       document.body.style.overflow = '';
     }
+
+    // ── Typewriter (Desafio heading) ────────────────────────────────
+    (function() {
+      var el = document.getElementById('desafio-title');
+      if (!el) return;
+      var fullText = el.textContent.trim();
+      el.innerHTML = '';
+      var textSpan = document.createElement('span');
+      var cursor   = document.createElement('span');
+      cursor.className = 'tw-cursor';
+      el.appendChild(textSpan);
+      el.appendChild(cursor);
+
+      var i = 0;
+      var TYPING  = 52;   // ms per character while typing
+      var ERASING = 24;   // ms per character while erasing
+      var PAUSE   = 3000; // ms pause after full text
+      var RESTART = 450;  // ms pause before retyping
+
+      function typeNext() {
+        textSpan.textContent = fullText.slice(0, i++);
+        if (i <= fullText.length) { setTimeout(typeNext, TYPING); }
+        else { setTimeout(eraseNext, PAUSE); }
+      }
+      function eraseNext() {
+        textSpan.textContent = fullText.slice(0, i--);
+        if (i >= 0) { setTimeout(eraseNext, ERASING); }
+        else { i = 0; setTimeout(typeNext, RESTART); }
+      }
+      setTimeout(typeNext, 900);
+    })();
 
     // ── Modules Slider ──────────────────────────────────────────────
     (function() {
