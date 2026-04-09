@@ -534,6 +534,17 @@
     .whatsapp-float:hover { background-color: #1ebe5d; transform: scale(1.08); box-shadow: 0 6px 22px rgba(0,0,0,0.34); }
     .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
 
+    .avatar-float {
+      position: fixed; bottom: 98px; right: 28px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+    .avatar-float:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(0,0,0,0.34); }
+    .avatar-float img { width: 58px; height: 58px; object-fit: cover; border-radius: 50%; display: block; }
+
     @media (max-width: 960px) {
       .site-header { padding: 10px 16px; }
       nav { padding: 0 20px; border-radius: 12px; }
@@ -1120,6 +1131,14 @@
       </nav>
     </div>
   </footer>
+
+  <a
+    class="avatar-float"
+    href="#faq"
+    aria-label="Perguntas Frequentes"
+  >
+    <img src="images/avatar_dr.png" alt="Perguntas Frequentes" />
+  </a>
 
   <a
     class="whatsapp-float"
