@@ -593,6 +593,109 @@
       .btn-cta { padding: 16px 32px; font-size: 1rem; }
       footer { padding: 28px 16px; }
     }
+
+    /* ── Dr. Neto Chat Section ──────────────────────────────── */
+    #dr-neto-chat { background: #faf7f4; padding: 80px 24px; }
+    .chat-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start;
+    }
+    .chat-title {
+      font-size: 2.4rem; line-height: 1.2; margin-bottom: 16px;
+      color: var(--navy); text-align: left; font-weight: 800;
+      font-family: 'Recoleta', 'Segoe UI', serif;
+    }
+    .chat-title em { font-style: italic; color: var(--orange); }
+    .chat-subtitle {
+      color: var(--text-muted); font-size: 1rem;
+      margin-bottom: 28px; line-height: 1.6;
+    }
+    .chat-capabilities {
+      background: var(--white); border-radius: 12px;
+      padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow);
+    }
+    .chat-capabilities h3 {
+      font-size: 0.95rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .chat-capabilities ul { display: flex; flex-direction: column; gap: 8px; }
+    .chat-capabilities ul li {
+      font-size: 0.9rem; color: var(--text); padding-left: 22px;
+      position: relative; line-height: 1.45;
+    }
+    .chat-capabilities ul li::before {
+      content: '→'; position: absolute; left: 0;
+      color: var(--orange); font-weight: 700;
+    }
+    .chat-disclaimer {
+      background: #fff8f0; border: 1px solid #fde8d0;
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 0.875rem; color: #7a5c3e; line-height: 1.55;
+    }
+    .chat-disclaimer strong { display: block; font-size: 0.9rem; color: #5a3d20; margin-bottom: 4px; }
+    .chat-widget {
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.1);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .chat-messages {
+      height: 380px; overflow-y: auto; padding: 20px;
+      display: flex; flex-direction: column; gap: 14px; scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 2px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+    .chat-message { display: flex; align-items: flex-start; gap: 10px; }
+    .chat-message.user-message { flex-direction: row-reverse; }
+    .chat-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    .message-bubble { max-width: 75%; padding: 12px 16px; border-radius: 14px; font-size: 0.9rem; line-height: 1.55; }
+    .bot-message .message-bubble { background: #f5f0eb; color: var(--text); border-radius: 4px 14px 14px 14px; }
+    .user-message .message-bubble { background: var(--navy); color: var(--white); border-radius: 14px 4px 14px 14px; }
+    .loading-bubble { display: flex !important; align-items: center; gap: 5px; min-height: 44px; }
+    .typing-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--orange); animation: typingDot 1.2s infinite ease-in-out;
+      display: inline-block; flex-shrink: 0;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+    .chat-input-area {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 16px; border-top: 1px solid #f0ece8;
+    }
+    .chat-input {
+      flex: 1; padding: 10px 16px; border: 1.5px solid #e5e7eb;
+      border-radius: 24px; font-size: 0.9rem; font-family: inherit;
+      outline: none; color: var(--text); background: #f9fafb;
+      transition: border-color 0.2s;
+    }
+    .chat-input:focus { border-color: var(--orange); background: var(--white); }
+    .chat-input::placeholder { color: #9ca3af; font-size: 0.875rem; }
+    .chat-input:disabled { opacity: 0.6; }
+    .chat-send-btn {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: var(--orange); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .chat-send-btn:hover:not(:disabled) { background: var(--orange-dark); transform: scale(1.08); }
+    .chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .chat-send-btn svg { width: 20px; height: 20px; fill: var(--white); }
+
+    @media (max-width: 960px) {
+      .chat-layout { grid-template-columns: 1fr; gap: 32px; }
+      .chat-title { font-size: 2rem; }
+    }
+    @media (max-width: 640px) {
+      #dr-neto-chat { padding: 48px 16px; }
+      .chat-messages { height: 300px; }
+      .chat-title { font-size: 1.75rem; }
+      .message-bubble { max-width: 85%; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -1075,6 +1178,65 @@
       </div>
     </section>
 
+    <section id="dr-neto-chat" aria-labelledby="dr-neto-chat-title">
+      <div class="inner">
+        <div class="chat-layout">
+
+          <!-- Lado esquerdo: informativo -->
+          <div class="chat-info">
+            <span class="section-label">Atendimento Inteligente</span>
+            <h2 class="chat-title" id="dr-neto-chat-title">Converse com o <em>Dr. Neto</em></h2>
+            <p class="chat-subtitle">Um assistente virtual especializado para orientar você sobre o curso, Direito dos Servidores Públicos e estratégia jurídica de defesa.</p>
+
+            <div class="chat-capabilities">
+              <h3>Como o Dr. Neto pode te ajudar:</h3>
+              <ul>
+                <li>Responde dúvidas sobre o conteúdo e metodologia do curso.</li>
+                <li>Orienta sobre temas de Direito dos Servidores Públicos.</li>
+                <li>Explica conceitos de defesa estratégica e teses aplicáveis.</li>
+                <li>Auxilia no primeiro contato antes de uma avaliação presencial.</li>
+                <li>Quando necessário, convida você para atendimento individualizado.</li>
+              </ul>
+            </div>
+
+            <div class="chat-disclaimer">
+              <strong>Importante:</strong>
+              As respostas são informativas e não substituem orientação jurídica individualizada com profissional habilitado.
+            </div>
+          </div>
+
+          <!-- Lado direito: interface de chat -->
+          <div class="chat-widget" role="region" aria-label="Chat com assistente do Dr. Neto">
+            <div class="chat-messages" id="chat-messages" aria-live="polite">
+              <div class="chat-message bot-message">
+                <img src="images/avatar_dr.png" alt="Assistente Dr. Neto" class="chat-avatar">
+                <div class="message-bubble">
+                  Olá! Sou o assistente virtual do Dr. Neto, especialista em Direito dos Servidores Públicos. Posso te ajudar com dúvidas sobre o curso ou sobre temas de direito público, defesa de servidores e estratégia jurídica. Como posso te ajudar hoje?
+                </div>
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <label for="chat-input" class="sr-only">Mensagem para o assistente</label>
+              <input
+                type="text"
+                id="chat-input"
+                class="chat-input"
+                placeholder="Digite sua dúvida sobre o curso ou direito público..."
+                maxlength="500"
+                autocomplete="off"
+              />
+              <button id="chat-send" class="chat-send-btn" aria-label="Enviar mensagem">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <section id="cta" aria-labelledby="cta-title">
       <div class="inner">
         <h2 id="cta-title">Invista na sua especialização em Direito dos Servidores Públicos</h2>
@@ -1134,8 +1296,8 @@
 
   <a
     class="avatar-float"
-    href="#faq"
-    aria-label="Perguntas Frequentes"
+    href="#dr-neto-chat"
+    aria-label="Converse com o Dr. Neto"
   >
     <img src="images/avatar_dr.png" alt="Perguntas Frequentes" />
   </a>
@@ -1276,6 +1438,130 @@
         e.preventDefault();
         var x = e.pageX - slider.offsetLeft;
         slider.scrollLeft = scrollLeft - (x - startX);
+      });
+    })();
+
+    // ── Dr. Neto Chat ────────────────────────────────────────────
+    (function() {
+      // Substitua pela sua chave da API Anthropic. Em produção, use um proxy backend.
+      var ANTHROPIC_API_KEY = '';
+      var API_URL = 'https://api.anthropic.com/v1/messages';
+      var SYSTEM_PROMPT =
+        'Você é o assistente virtual do Dr. Lourenço Grieco Neto, Mestre em Direito Constitucional e ' +
+        'especialista em defesa de servidores públicos, professor do curso "Direito dos Servidores Públicos ' +
+        'na Prática" do Instituto de Direito Aplicado (IDA).\n\n' +
+        'Seu papel:\n' +
+        '- Responder dúvidas sobre o conteúdo e metodologia do curso com clareza e didatismo\n' +
+        '- Orientar sobre Direito dos Servidores Públicos: regime jurídico, estabilidade, PAD, aposentadoria, remuneração, licenças e responsabilização administrativa\n' +
+        '- Explicar conceitos de defesa estratégica e teses aplicáveis para servidores\n' +
+        '- Ser elegante, profissional e acolhedor nas respostas\n' +
+        '- Quando a dúvida demandar análise individualizada, recomendar consulta com advogado habilitado\n' +
+        '- Mencionar o curso quando relevante, sem ser excessivamente comercial\n\n' +
+        'Sobre o curso:\n' +
+        '- Nome: Direito dos Servidores Públicos na Prática\n' +
+        '- Professor: Lourenço Grieco Neto (Mestre em Direito Constitucional)\n' +
+        '- Conteúdo: 16 módulos, 8+ horas, casos reais e jurisprudência atualizada\n' +
+        '- Acesso vitalício, múltiplos dispositivos, garantia de 7 dias\n' +
+        '- Valor: R$ 999,00 | Plataforma: Instituto de Direito Aplicado (IDA)\n\n' +
+        'Responda sempre em português brasileiro. Seja conciso e completo. Máximo 3-4 parágrafos curtos por resposta.';
+
+      var chatMessages = document.getElementById('chat-messages');
+      var chatInput   = document.getElementById('chat-input');
+      var chatSend    = document.getElementById('chat-send');
+      if (!chatMessages || !chatInput || !chatSend) return;
+
+      var history = [];
+
+      function addMessage(text, isUser) {
+        var msgDiv = document.createElement('div');
+        msgDiv.className = 'chat-message ' + (isUser ? 'user-message' : 'bot-message');
+        if (!isUser) {
+          var avatar = document.createElement('img');
+          avatar.src = 'images/avatar_dr.png';
+          avatar.alt = 'Assistente Dr. Neto';
+          avatar.className = 'chat-avatar';
+          msgDiv.appendChild(avatar);
+        }
+        var bubble = document.createElement('div');
+        bubble.className = 'message-bubble';
+        bubble.textContent = text;
+        msgDiv.appendChild(bubble);
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function addLoading() {
+        var msgDiv = document.createElement('div');
+        msgDiv.className = 'chat-message bot-message';
+        msgDiv.id = 'chat-loading';
+        var avatar = document.createElement('img');
+        avatar.src = 'images/avatar_dr.png';
+        avatar.alt = 'Assistente Dr. Neto';
+        avatar.className = 'chat-avatar';
+        msgDiv.appendChild(avatar);
+        var bubble = document.createElement('div');
+        bubble.className = 'message-bubble loading-bubble';
+        bubble.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+        msgDiv.appendChild(bubble);
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function removeLoading() {
+        var el = document.getElementById('chat-loading');
+        if (el) el.remove();
+      }
+
+      function setInputState(disabled) {
+        chatInput.disabled = disabled;
+        chatSend.disabled = disabled;
+      }
+
+      async function handleSend() {
+        var text = chatInput.value.trim();
+        if (!text) return;
+        chatInput.value = '';
+        setInputState(true);
+        addMessage(text, true);
+        history.push({ role: 'user', content: text });
+        addLoading();
+        try {
+          if (!ANTHROPIC_API_KEY) throw new Error('API key não configurada');
+          var resp = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': ANTHROPIC_API_KEY,
+              'anthropic-version': '2023-06-01',
+              'anthropic-dangerous-direct-browser-access': 'true'
+            },
+            body: JSON.stringify({
+              model: 'claude-haiku-4-5-20251001',
+              max_tokens: 800,
+              system: SYSTEM_PROMPT,
+              messages: history
+            })
+          });
+          if (!resp.ok) throw new Error('Erro na API: ' + resp.status);
+          var data = await resp.json();
+          var reply = data.content[0].text;
+          history.push({ role: 'assistant', content: reply });
+          removeLoading();
+          addMessage(reply, false);
+        } catch (err) {
+          removeLoading();
+          var errMsg = ANTHROPIC_API_KEY
+            ? 'Não foi possível processar sua mensagem no momento. Por favor, tente novamente.'
+            : 'O chat ainda não está configurado. Entre em contato pelo WhatsApp para tirar suas dúvidas.';
+          addMessage(errMsg, false);
+        }
+        setInputState(false);
+        chatInput.focus();
+      }
+
+      chatSend.addEventListener('click', handleSend);
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
       });
     })();
   </script>
