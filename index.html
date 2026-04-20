@@ -410,6 +410,72 @@
     .benefit-card h3 { color: #fff; font-size: 1rem; font-weight: 800; line-height: 1.35; margin: 0; }
     .benefit-card p { color: rgba(255,255,255,0.90); font-size: 0.87rem; font-weight: 600; line-height: 1.65; margin: 0; }
 
+    /* ── Course visual icons ─────────────────────────────────────── */
+    .course-visual svg { width: 52px; height: 52px; position: relative; z-index: 1; }
+
+    /* ── IDA Story ───────────────────────────────────────────────── */
+    #sobre-ida { background: var(--white); }
+    .story-intro { max-width: 640px; margin-bottom: 56px; }
+    .story-intro h2 { font-size: 2.1rem; font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 0; }
+
+    .story-body {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+      margin-bottom: 64px;
+    }
+    .story-lead {
+      font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.55;
+      border-left: 4px solid var(--orange); padding-left: 20px; margin-bottom: 24px;
+    }
+    .story-col p { color: #4b5563; line-height: 1.85; margin-bottom: 16px; font-size: 0.95rem; }
+    .story-col p:last-child { margin-bottom: 0; }
+    .story-col ul { display: flex; flex-direction: column; gap: 10px; margin: 16px 0 20px; }
+    .story-col li {
+      display: flex; align-items: flex-start; gap: 10px;
+      color: var(--navy); font-size: 0.93rem; font-weight: 500; line-height: 1.5;
+    }
+    .story-col li::before { content: "→"; color: var(--orange); font-weight: 900; flex-shrink: 0; }
+
+    .mvv-block {
+      background: var(--navy); border-radius: 20px; padding: 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 48px;
+    }
+    .mvv-item h3 {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 12px;
+    }
+    .mvv-item p { color: rgba(255,255,255,0.88); line-height: 1.8; font-size: 0.95rem; }
+
+    .values-block { margin-bottom: 0; }
+    .values-block > span { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); margin-bottom: 24px; }
+    .values-grid-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .value-item { background: var(--light-gray); border-radius: 12px; padding: 22px; border-left: 3px solid var(--orange); }
+    .value-item h4 { font-size: 0.9rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; line-height: 1.3; }
+    .value-item p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── Teaching Approach ───────────────────────────────────────── */
+    #abordagem { background: var(--navy); }
+    #abordagem .section-label { color: rgba(255,255,255,0.55); }
+    #abordagem .section-title { color: var(--white); margin-bottom: 12px; }
+    .abordagem-sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 48px; max-width: 56ch; }
+    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .approach-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 32px 28px;
+    }
+    .approach-time {
+      font-family: 'Recoleta', 'Segoe UI', serif;
+      font-size: 2.4rem; font-weight: 800; color: var(--orange);
+      margin-bottom: 10px; line-height: 1;
+    }
+    .approach-card h4 { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .approach-card p { font-size: 0.87rem; color: rgba(255,255,255,0.72); line-height: 1.7; }
+    .approach-close {
+      margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.75;
+      max-width: 64ch;
+    }
+    .approach-close strong { color: var(--white); }
+
     /* ── Testimonials ────────────────────────────────────────────── */
     #depoimentos { background: var(--white); }
     .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
@@ -618,6 +684,10 @@
       .desafio-layout { grid-template-columns: 1fr; }
       .desafio-heading { border-right: none; border-bottom: 2px solid rgba(0,0,0,0.08); padding-right: 0; padding-bottom: 20px; margin-bottom: 4px; }
       .courses-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-body { grid-template-columns: 1fr; gap: 32px; }
+      .mvv-block { grid-template-columns: 1fr; gap: 28px; padding: 32px; }
+      .values-grid-inner { grid-template-columns: repeat(2, 1fr); }
+      .approach-grid { grid-template-columns: 1fr; }
       .benefits-grid { grid-template-columns: repeat(2,1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .metrics-inner { grid-template-columns: 1fr; gap: 0; }
@@ -640,6 +710,7 @@
       section { padding: 48px 16px; }
       #metrics { padding: 24px 16px; }
       .courses-grid { grid-template-columns: 1fr; }
+      .values-grid-inner { grid-template-columns: 1fr; }
       .benefits-grid { grid-template-columns: 1fr; }
       #cta { padding: 72px 16px; }
       #cta h2 { font-size: 1.9rem; }
@@ -692,6 +763,7 @@
 
       <ul class="nav-links">
         <li><a href="#cursos">Cursos</a></li>
+        <li><a href="#sobre-ida">Sobre o IDA</a></li>
         <li><a href="#sobre">Professor</a></li>
         <li><a href="#beneficios">Benefícios</a></li>
         <li><a href="#depoimentos">Depoimentos</a></li>
@@ -711,6 +783,7 @@
 
   <div class="mobile-menu" id="mobile-menu" aria-label="Menu mobile">
     <a href="#cursos" onclick="closeMenu()">Cursos</a>
+    <a href="#sobre-ida" onclick="closeMenu()">Sobre o IDA</a>
     <a href="#sobre" onclick="closeMenu()">Professor</a>
     <a href="#beneficios" onclick="closeMenu()">Benefícios</a>
     <a href="#depoimentos" onclick="closeMenu()">Depoimentos</a>
@@ -776,7 +849,9 @@
 
           <!-- Ativo -->
           <article class="course-card c-active" aria-label="Curso disponível: Direito dos Servidores Públicos na Prática">
-            <div class="course-visual cv-servidor" aria-hidden="true">🏛️</div>
+            <div class="course-visual cv-servidor" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-active">Disponível agora</span>
               <h3>Direito dos Servidores Públicos na Prática</h3>
@@ -792,7 +867,9 @@
 
           <!-- Em breve -->
           <article class="course-card c-soon" aria-label="Em breve: Direito Tributário e Contábil">
-            <div class="course-visual cv-tributario" aria-hidden="true">📊</div>
+            <div class="course-visual cv-tributario" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="12" width="4" height="10" rx="1"/><rect x="9" y="7" width="4" height="15" rx="1"/><rect x="16" y="3" width="4" height="19" rx="1"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Direito Tributário e Contábil</h3>
@@ -802,7 +879,9 @@
           </article>
 
           <article class="course-card c-soon" aria-label="Em breve: Direito do Trabalho">
-            <div class="course-visual cv-trabalhista" aria-hidden="true">🤝</div>
+            <div class="course-visual cv-trabalhista" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Direito do Trabalho</h3>
@@ -812,7 +891,9 @@
           </article>
 
           <article class="course-card c-soon" aria-label="Em breve: Família e Sucessões">
-            <div class="course-visual cv-familia" aria-hidden="true">🏠</div>
+            <div class="course-visual cv-familia" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Família e Sucessões</h3>
@@ -822,7 +903,9 @@
           </article>
 
           <article class="course-card c-soon" aria-label="Em breve: Redação Jurídica">
-            <div class="course-visual cv-redacao" aria-hidden="true">✍️</div>
+            <div class="course-visual cv-redacao" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Redação Jurídica</h3>
@@ -832,7 +915,9 @@
           </article>
 
           <article class="course-card c-soon" aria-label="Em breve: Processo Administrativo Disciplinar">
-            <div class="course-visual cv-pad" aria-hidden="true">⚖️</div>
+            <div class="course-visual cv-pad" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 7h2c2 0 4-1 7-1s5 1 7 1h2"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Processo Administrativo Disciplinar</h3>
@@ -842,7 +927,9 @@
           </article>
 
           <article class="course-card c-soon" aria-label="Em breve: Legal Claims — Precatórios">
-            <div class="course-visual cv-precatorios" aria-hidden="true">💰</div>
+            <div class="course-visual cv-precatorios" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
             <div class="course-body">
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Legal Claims — Precatórios</h3>
@@ -852,6 +939,105 @@
           </article>
 
         </div>
+      </div>
+    </section>
+
+    <!-- IDA Story -->
+    <section id="sobre-ida" aria-labelledby="sobre-ida-title">
+      <div class="inner">
+
+        <div class="story-intro">
+          <span class="section-label">Sobre o Instituto</span>
+          <h2 id="sobre-ida-title">Por que o IDA existe</h2>
+        </div>
+
+        <div class="story-body">
+          <div class="story-col">
+            <p class="story-lead">O Instituto de Direito Aplicado nasceu de uma inquietação: por que a formação jurídica prepara profissionais para <em>pensar</em> o Direito, mas não para <em>exercê-lo</em>?</p>
+            <p>Depois de uma graduação na PUC-SP, especialização e mestrado em Direito Constitucional pela mesma faculdade, aprendi a construir raciocínios sofisticados, a interpretar normas, a debater teoria. Mas quando ingressei no mercado, percebi que faltava algo essencial: saber transformar conceito em petição, doutrina em estratégia, e conhecimento em cliente.</p>
+            <p>Foram 10 anos de advocacia até consolidar meu próprio escritório. E foi nessa trajetória que descobri o que nenhum curso me ensinou: como identificar oportunidades jurídicas reais a partir dos conceitos que aprendi na faculdade.</p>
+            <p>Cansado de ver cursos que vendem conteúdo jurídico sem demonstrar sua aplicação concreta, criei o IDA com um propósito claro: <strong>ensinar advogados a advocar de verdade.</strong></p>
+            <p style="font-size:0.9rem;color:#6b7280;font-style:italic;margin-top:20px;">— Lourenço Grieco Neto, fundador do IDA</p>
+          </div>
+
+          <div class="story-col">
+            <p>Aqui, você não vai apenas ouvir sobre institutos jurídicos. Você vai aprender:</p>
+            <ul>
+              <li>Como transformar conceitos em teses práticas que os tribunais acolhem</li>
+              <li>Como identificar oportunidades a partir de situações cotidianas dos seus clientes</li>
+              <li>Como captar clientes apresentando soluções jurídicas que eles nem sabiam que existiam</li>
+              <li>Como poupar anos de tentativa e erro, usando argumentos testados e aprovados na jurisprudência</li>
+            </ul>
+            <p>No IDA, ensinamos Direito como ele é aplicado — não como ele deveria ser em teoria. Porque advocacia não se aprende apenas estudando. <strong>Se aprende fazendo.</strong> E é isso que você vai fazer conosco.</p>
+          </div>
+        </div>
+
+        <div class="mvv-block">
+          <div class="mvv-item">
+            <h3>Missão</h3>
+            <p>Formar advogados capazes de transformar conhecimento jurídico em soluções práticas, estratégicas e lucrativas, conectando teoria à realidade do exercício profissional.</p>
+          </div>
+          <div class="mvv-item">
+            <h3>Visão</h3>
+            <p>Ser referência nacional em educação jurídica aplicada, reconhecido por preparar profissionais que dominam não apenas o Direito, mas a advocacia como negócio e como missão.</p>
+          </div>
+        </div>
+
+        <div class="values-block">
+          <span>Nossos valores</span>
+          <div class="values-grid-inner">
+            <div class="value-item">
+              <h4>Aplicabilidade acima de tudo</h4>
+              <p>Não basta saber — é preciso saber fazer. Todo conteúdo do IDA tem aplicação imediata na rotina do advogado.</p>
+            </div>
+            <div class="value-item">
+              <h4>Transparência na prática</h4>
+              <p>Mostramos o que funciona nos tribunais, o que não funciona, e por quê. Sem enrolação, sem promessas vazias.</p>
+            </div>
+            <div class="value-item">
+              <h4>Autonomia profissional</h4>
+              <p>Capacitamos advogados para identificarem sozinhos as oportunidades, construírem suas próprias teses e captarem seus próprios clientes.</p>
+            </div>
+            <div class="value-item">
+              <h4>Experiência real como base</h4>
+              <p>Nosso ensino vem de quem vive a advocacia no dia a dia — não de quem apenas teoriza sobre ela.</p>
+            </div>
+            <div class="value-item">
+              <h4>Compromisso com resultados</h4>
+              <p>Medimos nosso sucesso pelo sucesso dos nossos alunos: petições protocoladas, clientes captados, causas ganhas.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Teaching Approach -->
+    <section id="abordagem" aria-labelledby="abordagem-title">
+      <div class="inner">
+        <span class="section-label">Metodologia</span>
+        <h2 class="section-title" id="abordagem-title">Nossa abordagem de ensino</h2>
+        <p class="abordagem-sub">Cada aula do IDA é estruturada para replicar a rotina real de um escritório de advocacia.</p>
+
+        <div class="approach-grid">
+          <div class="approach-card">
+            <div class="approach-time">10 min</div>
+            <h4>Conceito</h4>
+            <p>O essencial da teoria — sem firulas acadêmicas, direto ao que importa para a prática. O fundamento que sustenta tudo o que vem a seguir.</p>
+          </div>
+          <div class="approach-card">
+            <div class="approach-time">20–30 min</div>
+            <h4>Aplicação</h4>
+            <p>Casos reais, estruturas de petição, análise de jurisprudência favorável e construção de teses. Aqui você vê como usar aquele conceito para resolver o problema do cliente.</p>
+          </div>
+          <div class="approach-card">
+            <div class="approach-time">+ bônus</div>
+            <h4>Captação</h4>
+            <p>Como transformar o conhecimento jurídico em clientes reais: onde encontrá-los, como abordar e como apresentar a solução de forma que gere confiança e contratação.</p>
+          </div>
+        </div>
+
+        <p class="approach-close">Porque aqui, <strong>Direito é ferramenta.</strong> E ferramenta se aprende usando.</p>
       </div>
     </section>
 
