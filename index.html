@@ -126,26 +126,47 @@
     #hero {
       position: relative; min-height: 88vh;
       display: flex; align-items: center;
+      background: #07152a;
       overflow: hidden; padding: 0;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1920&q=80');
-      background-size: cover; background-position: center 30%;
-      z-index: 0;
+    .hero-grid-pattern {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(244,114,43,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244,114,43,0.07) 1px, transparent 1px);
+      background-size: 52px 52px;
     }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(110deg, rgba(10,5,0,0.88) 0%, rgba(29,53,87,0.80) 55%, rgba(29,53,87,0.55) 100%);
-      z-index: 1;
+    .hero-glow-left {
+      position: absolute; z-index: 0;
+      left: -8%; top: 50%; transform: translateY(-50%);
+      width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,114,43,0.13) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-glow-right {
+      position: absolute; z-index: 0;
+      right: -6%; bottom: -20%;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,53,87,0.7) 0%, transparent 70%);
+      pointer-events: none;
     }
     .hero-inner {
       position: relative; z-index: 2;
       max-width: 1240px; margin: 0 auto; width: 100%;
-      padding: 120px 48px 100px;
-      display: flex; flex-direction: column; gap: 32px; align-items: flex-start;
+      padding: 100px 48px 96px;
+      display: grid; grid-template-columns: 360px 1fr; gap: 72px; align-items: center;
     }
-    .hero-content { color: var(--white); max-width: 760px; }
+    .hero-logo-col {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo-badge {
+      background: rgba(255,255,255,0.97);
+      border-radius: 24px; padding: 40px 44px;
+      box-shadow: 0 12px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo-badge img { width: 210px; height: auto; display: block; }
+    .hero-content { color: var(--white); }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(244,114,43,0.18); border: 1px solid rgba(244,114,43,0.50);
@@ -239,6 +260,17 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 24px rgba(0,0,0,0.10);
     }
+    .course-card.c-selected {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+      box-shadow: 0 4px 28px rgba(244,114,43,0.22);
+    }
+    .instructor-placeholder {
+      background: #f3f4f6;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .instructor-placeholder svg { width: 64px; height: 64px; opacity: 0.4; }
 
     .course-visual {
       height: 130px;
@@ -406,7 +438,8 @@
       position: relative; z-index: 2;
       padding: 28px 24px; display: flex; flex-direction: column; gap: 12px;
     }
-    .benefit-icon { font-size: 1.8rem; line-height: 1; }
+    .benefit-icon { font-size: 1.8rem; line-height: 1; display: block; }
+    .benefit-icon svg { width: 32px; height: 32px; stroke: var(--orange); }
     .benefit-card h3 { color: #fff; font-size: 1rem; font-weight: 800; line-height: 1.35; margin: 0; }
     .benefit-card p { color: rgba(255,255,255,0.90); font-size: 0.87rem; font-weight: 600; line-height: 1.65; margin: 0; }
 
@@ -677,7 +710,9 @@
       nav { padding: 0 20px; border-radius: 12px; }
       .nav-links { gap: 16px; }
       section { padding: 56px 20px; }
-      .hero-inner { padding: 100px 24px 72px; }
+      .hero-inner { padding: 80px 24px 72px; grid-template-columns: 1fr; gap: 40px; }
+      .hero-logo-badge { padding: 28px 32px; }
+      .hero-logo-badge img { width: 170px; }
       #hero h1 { font-size: 2.4rem; }
       #metrics { padding: 32px 20px; }
       .instructor-grid { grid-template-columns: 1fr; }
@@ -704,7 +739,9 @@
       nav { padding: 0 16px; border-radius: 10px; }
       .nav-links, .nav-actions { display: none; }
       .nav-hamburger { display: flex; }
-      .hero-inner { padding: 80px 16px 56px; }
+      .hero-inner { padding: 60px 16px 56px; grid-template-columns: 1fr; gap: 32px; }
+      .hero-logo-badge { padding: 24px 28px; }
+      .hero-logo-badge img { width: 150px; }
       #hero h1 { font-size: 1.85rem; }
       #hero p.sub { font-size: 0.95rem; }
       section { padding: 48px 16px; }
@@ -795,10 +832,17 @@
 
     <!-- Hero -->
     <section id="hero" aria-labelledby="hero-title">
-      <div class="hero-bg" role="img" aria-label="Profissionais jurídicos em ambiente moderno"></div>
-      <div class="hero-overlay"></div>
+      <div class="hero-grid-pattern" aria-hidden="true"></div>
+      <div class="hero-glow-left" aria-hidden="true"></div>
+      <div class="hero-glow-right" aria-hidden="true"></div>
 
       <div class="hero-inner">
+        <div class="hero-logo-col" aria-hidden="true">
+          <div class="hero-logo-badge">
+            <img src="images/logo_ida.jpg" alt="Instituto de Direito Aplicado">
+          </div>
+        </div>
+
         <article class="hero-content">
           <p class="hero-badge">🎓 Formação jurídica para advogados que querem resultados reais</p>
           <h1 id="hero-title">Conhecimento jurídico que funciona na prática</h1>
@@ -832,112 +876,6 @@
         <div class="metric">
           <div class="metric-value">7</div>
           <div class="metric-label">Cursos em desenvolvimento</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Courses catalog -->
-    <section id="cursos" aria-labelledby="cursos-title">
-      <div class="inner">
-        <div class="courses-intro">
-          <span class="section-label">Formações disponíveis</span>
-          <h2 class="section-title" id="cursos-title">Cursos do IDA</h2>
-          <p>Uma grade em expansão de formações práticas para advogados. O primeiro curso já está disponível — os demais chegam em breve.</p>
-        </div>
-
-        <div class="courses-grid">
-
-          <!-- Ativo -->
-          <article class="course-card c-active" aria-label="Curso disponível: Direito dos Servidores Públicos na Prática">
-            <div class="course-visual cv-servidor" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-active">Disponível agora</span>
-              <h3>Direito dos Servidores Públicos na Prática</h3>
-              <p>Domine regime jurídico, teses remuneratórias, execução contra a Fazenda e defesa em processos administrativos. Do mandado de segurança ao precatório.</p>
-              <div class="course-meta">
-                <span><strong>15</strong>&nbsp;aulas</span>
-                <span><strong>8h+</strong>&nbsp;de conteúdo</span>
-                <span>Acesso vitalício</span>
-              </div>
-              <a href="servidor-publico.html" class="course-cta cta-active">Ver curso completo</a>
-            </div>
-          </article>
-
-          <!-- Em breve -->
-          <article class="course-card c-soon" aria-label="Em breve: Direito Tributário e Contábil">
-            <div class="course-visual cv-tributario" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="12" width="4" height="10" rx="1"/><rect x="9" y="7" width="4" height="15" rx="1"/><rect x="16" y="3" width="4" height="19" rx="1"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Direito Tributário e Contábil</h3>
-              <p>Planejamento fiscal, defesas administrativas, execuções fiscais e a interface entre o raciocínio jurídico e contábil na prática advocatícia.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
-          <article class="course-card c-soon" aria-label="Em breve: Direito do Trabalho">
-            <div class="course-visual cv-trabalhista" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Direito do Trabalho</h3>
-              <p>Reclamações trabalhistas, cálculos liquidatórios, aspectos processuais e estratégias de atuação no contencioso trabalhista com foco em resultado.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
-          <article class="course-card c-soon" aria-label="Em breve: Família e Sucessões">
-            <div class="course-visual cv-familia" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Família e Sucessões</h3>
-              <p>Divórcio, guarda, alimentos, inventários e planejamento sucessório. Atuação prática nas demandas mais recorrentes e de maior impacto emocional e financeiro.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
-          <article class="course-card c-soon" aria-label="Em breve: Redação Jurídica">
-            <div class="course-visual cv-redacao" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Redação Jurídica</h3>
-              <p>Petições mais claras, objetivas e persuasivas. Técnicas de argumentação jurídica, estrutura de peças processuais e comunicação com o cliente e o juízo.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
-          <article class="course-card c-soon" aria-label="Em breve: Processo Administrativo Disciplinar">
-            <div class="course-visual cv-pad" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 7h2c2 0 4-1 7-1s5 1 7 1h2"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Processo Administrativo Disciplinar</h3>
-              <p>Defesa e acusação no PAD. Comissões disciplinares, contraditório e ampla defesa, nulidades processuais e estratégias de impugnação judicial.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
-          <article class="course-card c-soon" aria-label="Em breve: Legal Claims — Precatórios">
-            <div class="course-visual cv-precatorios" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Legal Claims — Precatórios</h3>
-              <p>RPV, precatórios federais, estaduais e municipais. Cessão de crédito, habilitação, gestão do relacionamento com o cliente e rentabilidade da carteira.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
         </div>
       </div>
     </section>
@@ -1041,28 +979,118 @@
       </div>
     </section>
 
-    <!-- Instructor -->
+    <!-- Courses catalog -->
+    <section id="cursos" aria-labelledby="cursos-title">
+      <div class="inner">
+        <div class="courses-intro">
+          <span class="section-label">Formações disponíveis</span>
+          <h2 class="section-title" id="cursos-title">Cursos do IDA</h2>
+          <p>Uma grade em expansão de formações práticas para advogados. O primeiro curso já está disponível — os demais chegam em breve.</p>
+        </div>
+
+        <div class="courses-grid">
+
+          <!-- Ativo -->
+          <article class="course-card c-active" data-course-id="servidor" aria-label="Curso disponível: Direito dos Servidores Públicos na Prática">
+            <div class="course-visual cv-servidor" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-active">Disponível agora</span>
+              <h3>Direito dos Servidores Públicos na Prática</h3>
+              <p>Domine regime jurídico, teses remuneratórias, execução contra a Fazenda e defesa em processos administrativos. Do mandado de segurança ao precatório.</p>
+              <div class="course-meta">
+                <span><strong>15</strong>&nbsp;aulas</span>
+                <span><strong>8h+</strong>&nbsp;de conteúdo</span>
+                <span>Acesso vitalício</span>
+              </div>
+              <a href="servidor-publico.html" class="course-cta cta-active">Ver curso completo</a>
+            </div>
+          </article>
+
+          <!-- Em breve -->
+          <article class="course-card c-soon" data-course-id="tributario" aria-label="Em breve: Direito Tributário e Contábil">
+            <div class="course-visual cv-tributario" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="12" width="4" height="10" rx="1"/><rect x="9" y="7" width="4" height="15" rx="1"/><rect x="16" y="3" width="4" height="19" rx="1"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Direito Tributário e Contábil</h3>
+              <p>Planejamento fiscal, defesas administrativas, execuções fiscais e a interface entre o raciocínio jurídico e contábil na prática advocatícia.</p>
+              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
+            </div>
+          </article>
+
+          <article class="course-card c-soon" data-course-id="trabalhista" aria-label="Em breve: Direito do Trabalho">
+            <div class="course-visual cv-trabalhista" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Direito do Trabalho</h3>
+              <p>Reclamações trabalhistas, cálculos liquidatórios, aspectos processuais e estratégias de atuação no contencioso trabalhista com foco em resultado.</p>
+              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
+            </div>
+          </article>
+
+          <article class="course-card c-soon" data-course-id="familia" aria-label="Em breve: Família e Sucessões">
+            <div class="course-visual cv-familia" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Família e Sucessões</h3>
+              <p>Divórcio, guarda, alimentos, inventários e planejamento sucessório. Atuação prática nas demandas mais recorrentes e de maior impacto emocional e financeiro.</p>
+              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
+            </div>
+          </article>
+
+          <article class="course-card c-soon" data-course-id="redacao" aria-label="Em breve: Redação Jurídica">
+            <div class="course-visual cv-redacao" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Redação Jurídica</h3>
+              <p>Petições mais claras, objetivas e persuasivas. Técnicas de argumentação jurídica, estrutura de peças processuais e comunicação com o cliente e o juízo.</p>
+              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
+            </div>
+          </article>
+
+          <article class="course-card c-soon" data-course-id="pad" aria-label="Em breve: Processo Administrativo Disciplinar">
+            <div class="course-visual cv-pad" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><line x1="12" y1="3" x2="12" y2="21"/><path d="M3 7h2c2 0 4-1 7-1s5 1 7 1h2"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Processo Administrativo Disciplinar</h3>
+              <p>Defesa e acusação no PAD. Comissões disciplinares, contraditório e ampla defesa, nulidades processuais e estratégias de impugnação judicial.</p>
+              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
+            </div>
+          </article>
+
+          <article class="course-card c-soon" data-course-id="precatorios" aria-label="Em breve: Legal Claims — Precatórios">
+            <div class="course-visual cv-precatorios" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Legal Claims — Precatórios</h3>
+              <p>RPV, precatórios federais, estaduais e municipais. Cessão de crédito, habilitação, gestão do relacionamento com o cliente e rentabilidade da carteira.</p>
+              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructor (dynamic — updated by course card selection) -->
     <section id="sobre" aria-labelledby="sobre-title">
       <div class="inner">
         <span class="section-label">Quem ensina</span>
-        <div class="instructor-grid">
-          <img src="images/drlo.jpg" alt="Professor Lourenço Grieco Neto" class="instructor-photo" loading="lazy" decoding="async">
-
-          <article class="instructor-info">
-            <h2 id="sobre-title">Lourenço Grieco Neto</h2>
-            <p class="instructor-role">Mestre em Direito Constitucional, professor e especialista em Direito Público</p>
-            <p>Lourenço atua há mais de 10 anos em <strong>Direito Público</strong>, com experiência em contencioso judicial, execução contra a Fazenda Pública, ações individuais e coletivas e defesa técnica em processos administrativos.</p>
-            <p>Sua trajetória reúne prática jurídica e atividade acadêmica, com atuação em temas como <strong>processos administrativos disciplinares, responsabilidade estatal, questões regulatórias e direitos de servidores públicos</strong>.</p>
-            <p>Como professor e pesquisador, traduz a teoria em linguagem clara, aplicável e útil para advogados que desejam atuar com mais segurança e autoridade em seus nichos.</p>
-
-            <ul class="check-list">
-              <li>Experiência prática em Direito Público e defesa de servidores</li>
-              <li>Mestre em Direito Constitucional pela PUC-SP</li>
-              <li>Professor titular e autor de artigos jurídicos</li>
-              <li>Especialista em processos administrativos disciplinares</li>
-              <li>Abordagem didática orientada à aplicação prática</li>
-            </ul>
-          </article>
+        <div id="instructor-container" class="instructor-grid">
+          <!-- rendered by JS -->
         </div>
       </div>
     </section>
@@ -1109,7 +1137,7 @@
           <article class="benefit-card">
             <img src="images/ben1.jpg" alt="" class="ben-bg" aria-hidden="true" />
             <div class="ben-content">
-              <span class="benefit-icon" aria-hidden="true">🎯</span>
+              <span class="benefit-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
               <h3>Leia melhor as oportunidades do caso</h3>
               <p>Aprenda a enxergar fundamentos jurídicos que muitas vezes passam despercebidos no atendimento inicial.</p>
             </div>
@@ -1118,7 +1146,7 @@
           <article class="benefit-card">
             <img src="images/ben2.jpg" alt="" class="ben-bg" aria-hidden="true" />
             <div class="ben-content">
-              <span class="benefit-icon" aria-hidden="true">📊</span>
+              <span class="benefit-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
               <h3>Construa argumentações mais sólidas</h3>
               <p>Organize melhor sua tese com base em fundamentos, contexto prático e maior clareza estratégica.</p>
             </div>
@@ -1127,7 +1155,7 @@
           <article class="benefit-card">
             <img src="images/ben3.jpg" alt="" class="ben-bg" aria-hidden="true" />
             <div class="ben-content">
-              <span class="benefit-icon" aria-hidden="true">💼</span>
+              <span class="benefit-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></span>
               <h3>Aumente a confiança do cliente</h3>
               <p>Explique possibilidades com mais segurança e eleve a percepção de valor do seu atendimento.</p>
             </div>
@@ -1136,7 +1164,7 @@
           <article class="benefit-card">
             <img src="images/ben4.jpg" alt="" class="ben-bg" aria-hidden="true" />
             <div class="ben-content">
-              <span class="benefit-icon" aria-hidden="true">💰</span>
+              <span class="benefit-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
               <h3>Atue em nichos com boa demanda</h3>
               <p>Amplie o potencial de rentabilidade ao dominar áreas com necessidades recorrentes e especializadas.</p>
             </div>
@@ -1145,7 +1173,7 @@
           <article class="benefit-card">
             <img src="images/ben5.jpg" alt="" class="ben-bg" aria-hidden="true" />
             <div class="ben-content">
-              <span class="benefit-icon" aria-hidden="true">⚖️</span>
+              <span class="benefit-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
               <h3>Ganhe repertório prático</h3>
               <p>Tenha contato com casos, raciocínios e exemplos que ajudam na atuação real e na tomada de decisão.</p>
             </div>
@@ -1154,7 +1182,7 @@
           <article class="benefit-card">
             <img src="images/ben6.jpg" alt="" class="ben-bg" aria-hidden="true" />
             <div class="ben-content">
-              <span class="benefit-icon" aria-hidden="true">🚀</span>
+              <span class="benefit-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
               <h3>Fortaleça a autoridade do seu escritório</h3>
               <p>Posicione-se com mais consistência em especialidades que geram diferenciação no mercado.</p>
             </div>
@@ -1384,6 +1412,92 @@
   </a>
 
   <script>
+    // ── Course → Instructor data ─────────────────────────────────────
+    var COURSE_INSTRUCTORS = {
+      servidor: {
+        photo: 'images/drlo.jpg',
+        photoAlt: 'Professor Lourenço Grieco Neto',
+        name: 'Lourenço Grieco Neto',
+        role: 'Mestre em Direito Constitucional, professor e especialista em Direito Público',
+        bio: [
+          'Lourenço atua há mais de 10 anos em <strong>Direito Público</strong>, com experiência em contencioso judicial, execução contra a Fazenda Pública, ações individuais e coletivas e defesa técnica em processos administrativos.',
+          'Sua trajetória reúne prática jurídica e atividade acadêmica, com atuação em temas como <strong>processos administrativos disciplinares, responsabilidade estatal, questões regulatórias e direitos de servidores públicos</strong>.',
+          'Como professor e pesquisador, traduz a teoria em linguagem clara, aplicável e útil para advogados que desejam atuar com mais segurança e autoridade em seus nichos.'
+        ],
+        checks: [
+          'Experiência prática em Direito Público e defesa de servidores',
+          'Mestre em Direito Constitucional pela PUC-SP',
+          'Professor titular e autor de artigos jurídicos',
+          'Especialista em processos administrativos disciplinares',
+          'Abordagem didática orientada à aplicação prática'
+        ]
+      }
+    };
+
+    var SOON_PLACEHOLDER = {
+      photo: null,
+      name: 'A ser anunciado',
+      role: 'Professor em breve',
+      bio: ['Este curso ainda está em desenvolvimento. O professor responsável será anunciado em breve.'],
+      checks: []
+    };
+
+    function renderInstructor(courseId) {
+      var data = COURSE_INSTRUCTORS[courseId] || SOON_PLACEHOLDER;
+      var container = document.getElementById('instructor-container');
+      if (!container) return;
+
+      var photoHtml = data.photo
+        ? '<img src="' + data.photo + '" alt="' + (data.photoAlt || data.name) + '" class="instructor-photo" loading="lazy" decoding="async">'
+        : '<div class="instructor-photo instructor-placeholder" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="40" cy="28" r="16"/><path d="M8 72c0-17.67 14.33-32 32-32s32 14.33 32 32"/></svg></div>';
+
+      var bioHtml = data.bio.map(function(p) { return '<p>' + p + '</p>'; }).join('');
+
+      var checksHtml = data.checks.length
+        ? '<ul class="check-list">' + data.checks.map(function(c) { return '<li>' + c + '</li>'; }).join('') + '</ul>'
+        : '';
+
+      container.innerHTML =
+        photoHtml +
+        '<article class="instructor-info">' +
+          '<h2 id="sobre-title">' + data.name + '</h2>' +
+          '<p class="instructor-role">' + data.role + '</p>' +
+          bioHtml +
+          checksHtml +
+        '</article>';
+    }
+
+    // ── Course card selection ────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      // render default (servidor)
+      renderInstructor('servidor');
+
+      var cards = document.querySelectorAll('.course-card[data-course-id]');
+      cards.forEach(function(card) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function(e) {
+          // Don't intercept the "Ver curso completo" link
+          if (e.target.closest('a')) return;
+
+          cards.forEach(function(c) { c.classList.remove('c-selected'); });
+          card.classList.add('c-selected');
+
+          var courseId = card.getAttribute('data-course-id');
+          renderInstructor(courseId);
+
+          // Smooth scroll to instructor section
+          var sobreSection = document.getElementById('sobre');
+          if (sobreSection) {
+            sobreSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Mark servidor card as selected by default
+      var defaultCard = document.querySelector('.course-card[data-course-id="servidor"]');
+      if (defaultCard) defaultCard.classList.add('c-selected');
+    });
+
     function toggleFaq(btn) {
       const item = btn.parentElement;
       const isOpen = item.classList.contains('open');
