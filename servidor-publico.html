@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Instituto de Direito Aplicado">
   <meta name="theme-color" content="#f4722b">
-  <link rel="canonical" href="https://www.seudominio.com.br/">
+  <link rel="canonical" href="https://www.seudominio.com.br/servidor-publico">
 
   <meta property="og:locale" content="pt_BR">
   <meta property="og:type" content="website">
@@ -417,6 +417,48 @@
     }
     .slider-dot.active { background: var(--orange); width: 24px; border-radius: 4px; }
 
+    /* Bonus section */
+    .bonus-section {
+      margin-top: 48px; background: linear-gradient(135deg, var(--navy) 0%, #243f60 100%);
+      border-radius: 16px; padding: 40px 48px;
+    }
+    .bonus-section h3 {
+      font-size: 1.2rem; font-weight: 800; color: var(--orange);
+      text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px;
+    }
+    .bonus-section .bonus-subtitle {
+      color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6;
+    }
+    .bonus-grid {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 16px;
+    }
+    .bonus-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      color: rgba(255,255,255,0.9); font-size: 0.9rem; line-height: 1.5;
+    }
+    .bonus-item::before {
+      content: "✅"; flex-shrink: 0; font-size: 1rem; margin-top: 1px;
+    }
+
+    /* Course summary section */
+    .course-summary {
+      margin-top: 32px; background: #fff;
+      border: 2px solid var(--orange); border-radius: 16px;
+      padding: 36px 40px;
+    }
+    .course-summary h3 {
+      font-size: 1.1rem; font-weight: 800; color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .summary-list { display: flex; flex-direction: column; gap: 12px; }
+    .summary-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.92rem; color: var(--text); line-height: 1.5;
+    }
+    .summary-item .si-check {
+      flex-shrink: 0; font-size: 1.05rem;
+    }
+
     #beneficios { background: linear-gradient(160deg, #fef3ee 0%, #fde8df 100%); }
     .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
     .benefit-card {
@@ -780,6 +822,7 @@
       </a>
 
       <ul class="nav-links">
+        <li><a href="/">← Instituto</a></li>
         <li><a href="#sobre">Professor</a></li>
         <li><a href="#curso">Curso</a></li>
         <li><a href="#beneficios">Benefícios</a></li>
@@ -799,6 +842,7 @@
   </header>
 
   <div class="mobile-menu" id="mobile-menu" aria-label="Menu mobile">
+    <a href="/" onclick="closeMenu()">← Instituto</a>
     <a href="#sobre" onclick="closeMenu()">Professor</a>
     <a href="#curso" onclick="closeMenu()">Curso</a>
     <a href="#beneficios" onclick="closeMenu()">Benefícios</a>
@@ -1091,6 +1135,30 @@
           <button class="slider-btn next" aria-label="Próximo">&#8250;</button>
         </div>
         <div class="slider-dots" id="sliderDots" aria-hidden="true"></div>
+
+        <div class="bonus-section">
+          <h3>Bônus Incluído em Cada Aula</h3>
+          <p class="bonus-subtitle">Cada aula termina com 5 minutos focados em como transformar o conhecimento jurídico em clientes reais:</p>
+          <div class="bonus-grid">
+            <div class="bonus-item">Scripts de abordagem para sindicatos e servidores</div>
+            <div class="bonus-item">Como apresentar teses de forma clara para converter consultas</div>
+            <div class="bonus-item">Oportunidades de atuação em nichos específicos</div>
+            <div class="bonus-item">Estratégias para ações plúrimas e coletivas que ampliam receita</div>
+          </div>
+        </div>
+
+        <div class="course-summary">
+          <h3>Ao final do curso, você terá:</h3>
+          <div class="summary-list">
+            <div class="summary-item"><span class="si-check">✅</span><span>15 aulas práticas com 10 min teoria + 20–30 min casos reais + 5 min captação</span></div>
+            <div class="summary-item"><span class="si-check">✅</span><span>Modelos de petições prontos para MS, ação ordinária e execução provisória</span></div>
+            <div class="summary-item"><span class="si-check">✅</span><span>Jurisprudência atualizada: STJ, STF, Tema 880, Lei 8.112/90, LC 1.080/2008</span></div>
+            <div class="summary-item"><span class="si-check">✅</span><span>Planilhas de cálculo para atrasos, juros e atualização monetária</span></div>
+            <div class="summary-item"><span class="si-check">✅</span><span>Scripts de apresentação para clientes e sindicatos</span></div>
+            <div class="summary-item"><span class="si-check">✅</span><span>Estratégias de captação em grupos, associações e órgãos públicos</span></div>
+          </div>
+        </div>
+
       </div>
     </section>
 
