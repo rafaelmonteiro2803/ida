@@ -285,6 +285,7 @@
       background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.18) 100%);
     }
 
+    .cv-metodo    { background: linear-gradient(135deg, #17281b 0%, #223c27 100%); }
     .cv-servidor  { background: linear-gradient(135deg, #1d3557 0%, #2c527e 100%); }
     .cv-tributario { background: linear-gradient(135deg, #14422a 0%, #1f6040 100%); }
     .cv-trabalhista { background: linear-gradient(135deg, #1a2c4a 0%, #264873 100%); }
@@ -292,7 +293,6 @@
     .cv-redacao    { background: linear-gradient(135deg, #1a3a3a 0%, #265858 100%); }
     .cv-pad        { background: linear-gradient(135deg, #3a2a14 0%, #5c4420 100%); }
     .cv-precatorios { background: linear-gradient(135deg, #2a1818 0%, #4a2424 100%); }
-    .cv-carreira    { background: linear-gradient(135deg, #1a2e1a 0%, #2d4f2d 100%); }
 
     .course-card.c-soon .course-visual { filter: grayscale(0.4); }
 
@@ -759,6 +759,12 @@
       .chat-messages { height: 300px; }
       .chat-title { font-size: 1.75rem; }
       .message-bubble { max-width: 85%; }
+      .avatar-float { display: none; }
+      .whatsapp-float {
+        width: 52px; height: 52px;
+        right: 14px; bottom: 14px;
+      }
+      .whatsapp-float svg { width: 28px; height: 28px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -810,7 +816,7 @@
 
       <div class="nav-actions">
         <a href="#cursos" class="btn-nav-outline">Ver cursos</a>
-        <a href="servidor-publico.html" class="btn-nav">Começar agora</a>
+        <a href="servidor-publico.html" class="btn-nav">Ver curso</a>
       </div>
 
       <button class="nav-hamburger" aria-label="Abrir menu" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMenu(this)">
@@ -826,7 +832,7 @@
     <a href="#beneficios" onclick="closeMenu()">Benefícios</a>
     <a href="#depoimentos" onclick="closeMenu()">Depoimentos</a>
     <a href="#faq" onclick="closeMenu()">Perguntas frequentes</a>
-    <a href="servidor-publico.html" class="btn-mobile-cta" onclick="closeMenu()">Começar agora</a>
+    <a href="servidor-publico.html" class="btn-mobile-cta" onclick="closeMenu()">Ver curso</a>
   </div>
 
   <main id="conteudo-principal">
@@ -986,18 +992,35 @@
         <div class="courses-intro">
           <span class="section-label">Formações disponíveis</span>
           <h2 class="section-title" id="cursos-title">Cursos do IDA</h2>
-          <p>Uma grade em expansão de formações práticas para advogados. O primeiro curso já está disponível — os demais chegam em breve.</p>
+          <p>Uma grade em expansão de formações práticas para advogados. Os cursos em desenvolvimento já possuem páginas completas para consulta de programa e proposta.</p>
         </div>
 
         <div class="courses-grid">
 
-          <!-- Ativo -->
-          <article class="course-card c-active" data-course-id="servidor" aria-label="Curso disponível: Direito dos Servidores Públicos na Prática">
+          <!-- Em breve -->
+          <article class="course-card c-active" data-course-id="metodo" aria-label="Em breve: Método de Atuação Jurídica">
+            <div class="course-visual cv-metodo" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M8.2 7.2V5.8c0-.9.7-1.6 1.6-1.6h4.4c.9 0 1.6.7 1.6 1.6v1.4"/><rect x="4.4" y="7.2" width="15.2" height="12.6" rx="2.1"/></svg>
+            </div>
+            <div class="course-body">
+              <span class="course-badge badge-soon">Em breve</span>
+              <h3>Método de Atuação Jurídica</h3>
+              <p>Do início à atuação: escolha sua área, torne-se referência, encontre teses jurídicas, prepare a primeira reunião, converta leads em clientes, precifique honorários e otimize o acompanhamento processual sem atrapalhar o dia a dia.</p>
+              <div class="course-meta">
+                <span><strong>6</strong>&nbsp;aulas</span>
+                <span><strong>2h+</strong>&nbsp;de conteúdo</span>
+                <span>Em breve</span>
+              </div>
+              <a href="metodo-atuacao-juridica.html" class="course-cta cta-active">Ver curso completo</a>
+            </div>
+          </article>
+
+          <article class="course-card c-active" data-course-id="servidor" aria-label="Em breve: Direito dos Servidores Públicos na Prática">
             <div class="course-visual cv-servidor" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
             </div>
             <div class="course-body">
-              <span class="course-badge badge-active">Disponível agora</span>
+              <span class="course-badge badge-soon">Em breve</span>
               <h3>Direito dos Servidores Públicos na Prática</h3>
               <p>Domine regime jurídico, teses remuneratórias, execução contra a Fazenda e defesa em processos administrativos. Do mandado de segurança ao precatório.</p>
               <div class="course-meta">
@@ -1066,18 +1089,6 @@
               <span class="course-badge badge-soon">Em breve</span>
               <h3>Processo Administrativo Disciplinar</h3>
               <p>Defesa e acusação no PAD. Comissões disciplinares, contraditório e ampla defesa, nulidades processuais e estratégias de impugnação judicial.</p>
-              <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
-            </div>
-          </article>
-
-          <article class="course-card c-soon" data-course-id="carreira" aria-label="Em breve: Carreira de Advogado">
-            <div class="course-visual cv-carreira" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.88)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-            </div>
-            <div class="course-body">
-              <span class="course-badge badge-soon">Em breve</span>
-              <h3>Carreira de Advogado</h3>
-              <p>Escolha de área de atuação, prospecção de clientes e precificação de serviços jurídicos. Do início ao escritório estruturado.</p>
               <span class="course-cta cta-soon" aria-hidden="true">Em breve</span>
             </div>
           </article>
@@ -1277,7 +1288,7 @@
               Existe garantia de satisfação?
               <span class="faq-icon" aria-hidden="true">+</span>
             </button>
-            <div class="faq-answer">Sim. O curso disponível conta com garantia de 7 dias, conforme as regras comerciais e políticas da plataforma.</div>
+            <div class="faq-answer">Sim. A página completa do curso de Servidores Públicos informa a garantia de 7 dias, conforme as regras comerciais e políticas da plataforma.</div>
           </article>
 
           <article class="faq-item">
@@ -1415,6 +1426,24 @@
   <script>
     // ── Course → Instructor data ─────────────────────────────────────
     var COURSE_INSTRUCTORS = {
+      metodo: {
+        photo: 'images/drlo.jpg',
+        photoAlt: 'Professor Lourenço Grieco Neto',
+        name: 'Lourenço Grieco Neto',
+        role: 'Mestre em Direito Constitucional, advogado, professor e fundador do IDA',
+        bio: [
+          'Lourenço reuniu neste método aprendizados de prática jurídica, construção de autoridade e rotina de escritório para ajudar advogados a saírem da atuação dispersa.',
+          'O curso mostra como escolher área, encontrar problemas recorrentes, transformar teses em conteúdo, conduzir reuniões, apresentar honorários e acompanhar processos sem perder tempo estratégico.',
+          'A proposta é ajudar o advogado a entender não apenas o Direito, mas a atuação jurídica como serviço, posicionamento e negócio profissional.'
+        ],
+        checks: [
+          'Mais de 10 anos de prática jurídica e gestão de casos',
+          'Mestre em Direito Constitucional pela PUC-SP',
+          'Experiência em posicionamento jurídico e produção de conteúdo educativo',
+          'Didática voltada à aplicação prática e à rotina do escritório',
+          'Método pensado para advogados em fase de estruturação ou reposicionamento'
+        ]
+      },
       servidor: {
         photo: 'images/drlo.jpg',
         photoAlt: 'Professor Lourenço Grieco Neto',
@@ -1470,8 +1499,8 @@
 
     // ── Course card selection ────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', function() {
-      // render default (servidor)
-      renderInstructor('servidor');
+      // render default (metodo)
+      renderInstructor('metodo');
 
       var cards = document.querySelectorAll('.course-card[data-course-id]');
       cards.forEach(function(card) {
@@ -1494,8 +1523,8 @@
         });
       });
 
-      // Mark servidor card as selected by default
-      var defaultCard = document.querySelector('.course-card[data-course-id="servidor"]');
+      // Mark metodo card as selected by default
+      var defaultCard = document.querySelector('.course-card[data-course-id="metodo"]');
       if (defaultCard) defaultCard.classList.add('c-selected');
     });
 
